@@ -1,0 +1,48 @@
+<!-- TOP SECTION -->
+<div class="container33"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="2px"
+     fxLayoutGap.xs="0">
+  <div fxFlex="30%">{{gameData.whoAmI}}</div>
+  <div fxFlex="40%"style="background-color: red;">  
+    <app-discardpile [gameData]="gameData" seat="N" showCards="false"></app-discardpile>
+  </div> 
+  <div fxFlex="30%"></div>
+</div>
+
+<!-- MIDDLE SECTION -->
+<div class="container33"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="2px"
+     fxLayoutGap.xs="0">
+  <div fxFlex="35%">
+    <app-discardpile [gameData]="gameData" seat="W" showCards="false"></app-discardpile>
+  </div>
+  <div fxFlex="30%" style="background-color: green;">
+    <app-turnuppile [gameData]="gameData"></app-turnuppile>
+  </div> 
+  <div fxFlex="35%" >
+    <app-discardpile [gameData]="gameData" seat="E" showCards="false"></app-discardpile>
+  </div>
+</div>
+
+
+<!-- BOTTOM SECTION -->
+<div class="container33"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="2px"
+     fxLayoutGap.xs="0">
+  <div fxFlex="32.5%"></div>
+  <div fxFlex="35%" style="background-color: red;">
+    <app-discardpile [gameData]="gameData" seat="S" showCards="false"></app-discardpile>
+  </div> 
+  <div fxFlex="32.5%"></div>
+</div>
+
+

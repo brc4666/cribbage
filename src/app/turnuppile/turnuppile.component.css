@@ -1,0 +1,32 @@
+.turnuppile_container {
+    display: flex;
+    box-sizing: border-box;
+    width: 98%;
+    height: 98%;
+    min-width: 20%;
+    margin: auto;
+    padding: 2px;
+    /* background-color: white; */
+    border: 2px solid rgb(187, 187, 87);
+    border-radius: 15px;
+    text-align: center;
+    justify-content: center;
+    overflow: auto;
+  }
+
+  .cardwrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 2.5%;
+    padding: 0px;
+  }
+ 
+  .cardwrapper img {
+    max-width: 200%;
+    max-height: 200%;
+    object-fit: cover;
+  }
+
+
+ 

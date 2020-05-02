@@ -1,0 +1,73 @@
+<h1>{{title}}</h1>
+
+<!-- TOP SECTION -->
+<div class="container25"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="2px"
+     fxLayoutGap.xs="0">
+  <div class="item item-1" style="background-color:blue;" fxFlex="20%">
+    <app-totalscore [gameData]="gameData" seats="NS" scoreIndex=0></app-totalscore>
+  </div>
+  <div class="item item-3" style="background-color: yellow;" fxFlex>
+    <app-horizontalhand [gameData]="gameData" screenPosition="top" cssClassname="playeropposite" showCards="false"></app-horizontalhand>
+  </div> 
+  <div class="item item-2" style="background-color:green;" fxFlex="20%" fxFlexOrder="3">
+    <app-totalscore [gameData]="gameData" seats="EW" scoreIndex=1></app-totalscore>
+  </div>
+
+</div>
+
+<!-- CENTRAL SECTION -->
+<div class="container50"
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="center"
+  fxLayoutGap="2px"
+  fxLayoutGap.xs="0">
+  <!-- *ngIf="gameData.numActivePlayers>2" -->
+  <div  style="background-color: yellow;" fxFlex="20%">
+      <app-verticalhand [gameData]="gameData" screenPosition="left" cssClassname="playerleft" showCards="false"></app-verticalhand>
+  </div>
+  
+  <div style="background-color:white;" fxFlex=60%>
+    <app-cardtable [gameData]="gameData"></app-cardtable>
+  </div>
+  <div style="background-color: yellow;" fxFlex="20%">
+    <app-verticalhand [gameData]="gameData" screenPosition="right" cssClassname="playerleft" showCards="false"></app-verticalhand>
+  </div>
+</div>
+
+<!-- BOTTOM SECTION -->
+<div class="container25"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="2px"
+     fxLayoutGap.xs="0">
+  <div style="background-color:blue;" fxFlex="20%">Unused</div>
+  <div style="background-color:green;" fxFlex="20%" fxFlexOrder="6">Unused</div>
+  <div style="background-color: blue;" fxFlex>
+    <app-horizontalhand [gameData]="gameData" screenPosition="bottom" cssClassname="myhand" showCards="true"></app-horizontalhand>
+  </div>
+</div>
+
+<div *ngFor='let message of localmessages'> {{message}} </div>
+
+
+<!-- GAME INITIALISATION -->
+<div *ngIf="!gameData.isSetup" class="container">
+  <app-playerregistration [gameData]="gameData"></app-playerregistration>
+</div>
+<div *ngIf="!gameData.isDealerSet" class="container">
+  <!-- do cut for deal thing here 
+  {{gameData.initDealer("Brian")}};
+  
+  <div *ngIf="showCut" class="container">
+    <app-cutdeck showCards="false"></app-cutdeck>
+  </div>
+  -->
+</div>
+
+

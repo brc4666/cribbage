@@ -1,0 +1,10 @@
+<div class=discardpile>    
+    <section class="cardswrapper">   
+        <span class="discardwrapper" *ngFor="let discard of cardsinDiscardPile">  
+            <span [class.hidden]="discard.isVisible===false">
+            <img [ngStyle]="{ left: discard.offset }" src='{{discard.imageFile}}' alt=discard.card>
+            </span>
+        </span>
+  
+    </section>
+</div>

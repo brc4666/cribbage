@@ -1,0 +1,35 @@
+<div class={{cssClassname}}>
+
+    <section class="namewrapper">
+        <section class="playersname"> 
+            {{title}}
+        </section>
+    </section>
+        <section class="playerscards">
+            <section class="hand"> 
+                <section class="cardwrapper" *ngFor="let card of cardsinHand">
+                    <span [class.playable]="card.isVisible===true">
+                        <img 
+                        (click)="onSelectCard(card)" 
+                        src='{{card.imageFile}}' alt=card.card>
+                    </span>
+                </section>
+            </section>
+
+            <!--
+            <section class="spacer">
+ 
+            </section>
+
+            <section class="discardpile">    
+                <span class="discardwrapper" *ngFor="let discard of cardsinDiscardPile">  
+                    <span [class.hidden]="discard.isVisible===false">
+                    <img [ngStyle]="{ left: discard.offset }" src='{{discard.imageFile}}' alt=discard.card>
+                    </span>
+                </span>
+            </section>
+            -->
+        
+    </section>
+
+</div>

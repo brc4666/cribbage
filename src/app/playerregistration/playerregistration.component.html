@@ -1,0 +1,85 @@
+<div class="players-modal">
+    <div class="players-modal-body">
+        <h1>Who's playing ... ?</h1>
+
+        <!-- Lookup https://stackoverflow.com/questions/55123762/declare-a-variable-and-use-it-in-html -->
+        <div class="height: 40%"
+            fxLayout
+            fxLayout.xs="column"
+            fxLayoutAlign="center"
+            fxLayoutGap="40px"
+            fxLayoutGap.xs="0">
+            <div fxFlex="50%">
+                <div class="rowcontainer">
+                    <div class="playercontainer">
+                        <div class="playersname">{{this.gameData.potentialPlayers[0].name}}</div>
+                        <div class="connectbutton"  
+                            [class.selectable]="isButtonSelectable(0)"
+                            [class.notselectable]="!isButtonSelectable(0)"
+                            [style.background]="getButtonStyle(0)"
+                            (click)="onClickConnect(0)">
+                            {{this.getButtonText(0)}}
+                        </div>
+                    </div>
+                    <div class="playercontainer">
+                        <div class="playersname">{{this.gameData.potentialPlayers[2].name}}</div>
+                        <div class="connectbutton"   
+                            [class.selectable]="isButtonSelectable(2)"
+                            [class.notselectable]="!isButtonSelectable(2)"
+                            [style.background]="getButtonStyle(2)"
+                            (click)="onClickConnect(2)">
+                            {{this.getButtonText(2)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="height: 40%"
+            fxLayout
+            fxLayout.xs="column"
+            fxLayoutAlign="center"
+            fxLayoutGap="40px"
+            fxLayoutGap.xs="0">
+            <div fxFlex="50%">
+                <div class="rowcontainer">
+                    <div class="playercontainer">
+                        <div class="playersname">{{this.gameData.potentialPlayers[1].name}}</div>
+                        <div class="connectbutton"    
+                            [class.selectable]="isButtonSelectable(1)"
+                            [class.notselectable]="!isButtonSelectable(1)"
+                            [style.background]="getButtonStyle(1)"
+                            (click)="onClickConnect(1)">
+                            {{this.getButtonText(1)}}
+                        </div>
+                    </div>
+                    <div class="playercontainer">
+                        <div class="playersname">{{this.gameData.potentialPlayers[3].name}}</div>
+                        <div class="connectbutton" 
+                            [class.selectable]="isButtonSelectable(3)"
+                            [class.notselectable]="!isButtonSelectable(3)"
+                            [style.background]="getButtonStyle(3)"
+                            (click)="onClickConnect(3)">
+                            {{this.getButtonText(3)}}
+                        </div>
+                        <!-- color={{this.getButtonStyle(3)}} -->
+                        <!-- <span [class.selectable]="isSelectable(3)"> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="height: 20%"
+            fxLayout
+            fxLayoutMargin="10px"
+            fxLayout.xs="column"
+            fxLayoutAlign="center"
+            fxLayoutGap="40px"
+            fxLayoutGap.xs="0">
+            <div fxFlex="50%">
+                <button *ngIf="this.closeButtonText" class="connectbutton selectable" style="margin:10px;" (click)="onStartGame()">{{this.closeButtonText}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="players-modal-background"></div>
