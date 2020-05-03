@@ -17,6 +17,7 @@ export class TotalscoreComponent implements OnInit {
 
   constructor() { }
 
+
   ngOnInit(): void {
     /*
     if (("NS"==this.seats) || ("N"==this.seats)) {
