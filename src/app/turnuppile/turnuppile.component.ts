@@ -17,7 +17,7 @@ export class TurnuppileComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.turnUp = new CardinHand(1, 'qs', false, false);
+    this.turnUp = new CardinHand(1, 'ad', false, false);
   }
 
 }
