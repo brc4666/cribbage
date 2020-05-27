@@ -1,14 +1,12 @@
-import { Input, Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
-import { MessagingService } from '../_services/messagingservice.service';
-import { MessageType, MessageHeader } from '../_classes/common';
+import { GameControllerService } from '../_services/gamecontroller.service';
+import { MessageType, MessageHeader, GamePhase } from '../_classes/common';
 
-import { CardinHand, DiscardedCard } from '../_classes/cardinhand';
-import { GameData } from '../_classes/gamedata';
-
+import { CardinHand } from '../_classes/cardinhand';
 
 @Component({
   selector: 'app-horizontalhand',
@@ -21,9 +19,6 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
   // intra-component messaging variables
   private subscription: Subscription;
   private msgstoProcess: any[] = [MessageType.game, MessageType.cards];
-
-  // Cmponent Inputs
-  @Input() gameData: GameData;
   
   // Component parameters
   screenPosition: string = "";
@@ -32,21 +27,23 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
   
   // member variables
   playersName: string;              // the player's name for this view 
-  title: string = "";               // for display on view         
+  playersIndex: number = -1;        // index of this player in gameData.activePlayers[]
+  compassPoint: string = "";        // the compass point of this player
+  title: string = "";               // for display on view      
+  actionMessage: string = "";       // message / hint to show to player
   selectedCard: string;             // the card clicked in the view
   
+  // Handy values to control view
+  showButton: boolean = false;      // whether to show/hide the action button fo this view   
+  buttonText: string="";
+  assetsPath: string = environment.ASSETPATH;
   
-  cardsinHand: CardinHand[] = [];
-  cardsinDiscardPile: DiscardedCard[] = [];
-  isMyTurn: boolean; 
-  
-  
-  constructor(public messageService: MessagingService ) {
-    this.subscription = this.messageService.getMessage()
+  constructor(public gc: GameControllerService ) {
+    this.subscription = this.gc.getMessage()
                         .pipe( filter( (msg: any[]) => (this.msgstoProcess.indexOf(msg[0])>=0) ) ) 
-                        .subscribe( (message) => { this.onMessage(message) } );
+                        .subscribe( (message) => { this.onInternalMessage(message) } );
   }
-
+    
   ngOnDestroy() {
       // unsubscribe to ensure no memory leaks
       this.subscription.unsubscribe();
@@ -54,98 +51,189 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     let showCards = (this.showCards.toLowerCase() == "true");
+    if (environment.DEBUG_NO_SERVER) {
+      showCards = true;
+    }
 
-    this.cardsinHand.push( new CardinHand(1, '9s', showCards, false));
-    this.cardsinHand.push( new CardinHand(2, '7c', showCards, false));
-    this.cardsinHand.push( new CardinHand(3, 'tc', showCards, false));
-    this.cardsinHand.push( new CardinHand(4, 'kc', showCards, false));
-    this.cardsinHand.push( new CardinHand(5, '3c', showCards, false));
-
-    // Create one invisible element in the discard pile to size the container
-    this.cardsinDiscardPile.push( new DiscardedCard(1, '8d', false));
-
+    this.showButton = (this.screenPosition=="bottom");
     this.UpdateLocals();   
   }
 
-  onMessage(msg: any[]) {
+  onInternalMessage(msg: any[]) {
     if (msg==undefined) 
        return;
 
     let msgheader = msg[1];
     switch ( msgheader ) {
-      
-      case MessageHeader.refreshgame:        
+      case MessageHeader.refreshgame: 
         this.UpdateLocals();
         break;
-    
-      case MessageHeader.refreshcards:
+      case MessageHeader.gamestarted:
+        this.UpdateLocals();
         break;
-      
+      case MessageHeader.statusupdate:
+        this.UpdateLocals();
+        break;
       default:
         break;
     }
   }
 
-  onClickSpacer() {
-    this.refreshDiscardPile();
+  isCardPlayable(card: CardinHand): boolean {
+    return  ( ( (this.gc.game.state.currentPhase==GamePhase.discardingToBox) || (this.gc.game.state.currentPhase==GamePhase.pegging) ) &&
+              ( (card.isInVisible==false) && ( card.played==false) && (this.playersName===this.gc.game.state.currentActivePlayer) ) );
+  }
+
+  isCardHidden(card: CardinHand): boolean {
+    if (card.isInVisible==true) {
+      return true;
+    } else if ( this.gc.game.state.currentPhase == GamePhase.discardingToBox ) {
+      return false;
+    } else if ( this.gc.game.state.currentPhase == GamePhase.pegging ) {
+      if (card.played==false) {
+        return false;
+      } else if ( this.screenPosition === 'bottom') {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+    // 
+
   }
 
   onSelectCard(card: CardinHand) {
-    if(card.isVisible===true && card.played===false) {
-      this.selectedCard = card.card; 
-      // Update the discard pile with the selected card
-      this.addCardtoMyDiscardPile( card.card );
-      // update the 'hand' with the fact this card has been played (and cannot be played again)
-      this.cardsinHand[card.id-1].cardPlayed(); 
-      this.gameData.sharedCard = card.card;
-      let msg = this.playersName + " discarded " + card.card;
-      // this.sendMessage( msg );
+    if ( (this.gc.game.state.currentPhase==GamePhase.cuttingForTurnup) ||
+       (this.gc.game.state.currentPhase==GamePhase.showingHands) ||
+        ((card.isInVisible==true) || (card.played===true)) ) {
+      return;
     }
+
+    switch (this.gc.game.state.currentPhase) {
+      case (GamePhase.pegging):
+        // check if not over 31 ! // TO DO
+        if (this.gc.game.pegging.currentTotal + card.cardValue > 31) {
+          alert(" You cannot play that card. Current Total = " + this.gc.game.pegging.currentTotal);
+          return;
+        }
+        // We are good to go with the discard operation
+        this.selectedCard = card.card; 
+        // Update the current player's list of discarded cards
+        this.gc.game.addCardtoDiscardPile(this.playersName, card.card);
+
+        this.gc.sendDiscard(this.playersName, card.card);
+        break;
+      case (GamePhase.discardingToBox):
+        // check correct number of cards are ready to be discarded
+        if ( this.gc.game.getNumDiscards(this.playersName) >= this.gc.game.state.requiredDiscardsforBox )
+        {
+          alert("You cannot discard anymore cards!");
+        } else {
+          // We are good to go with the discard operation
+          this.selectedCard = card.card; 
+          // Update the current player's list of discarded cards
+          this.gc.game.addCardtoDiscardPile(this.playersName, card.card);
+          // Now send a message to the discard pile so that is can display the updated discarded card
+          this.gc.refreshDiscards( this.playersName );
+        }
+        break;
+    }
+ 
   }
 
   onButtonClick() {
-    // this.sendMessage( this.playersName + " clicked his button" );
-
-  }
-
-  private addCardtoMyDiscardPile (cardId: string) {
-    this.gameData.cardDiscarded(this.playersName, cardId);
-    this.refreshDiscardPile();
-   
-  }
-
-
-  refreshDiscardPile() {
-      return;
-      // Clear the local discard array to remove any dummy cards etc.
-      this.cardsinDiscardPile.splice(0, this.cardsinDiscardPile.length);
-      // get a copy of discarded cards from the global controller
-      var discards:string[] = this.gameData.getDiscardedCards(this.playersName);
-      if (discards.length <=0 ) {
-        // The player has not discarded a card yet,
-        // so we'll add a dummy invisible card to the local discard pile to size the container
-        this.cardsinDiscardPile.push( new DiscardedCard(1, 'ad', false));
-      } else if ( 0 < discards.length ) {
-        // now add all the cards in the global controller to local array
-        for (let i=0; i < discards.length; i++) {
-          this.cardsinDiscardPile.push( new DiscardedCard(i+1, discards[i]) );
+    switch (this.gc.game.state.currentPhase) {
+      case (GamePhase.discardingToBox):
+        // Have we got the correct number of cards?
+        if (this.gc.game.getNumDiscards(this.playersName) < this.gc.game.state.requiredDiscardsforBox)
+        {
+          alert("You must discard " + this.gc.game.state.requiredDiscardsforBox + " cards to the box!");
+        } else {
+          // Yes - we are cleared to commit the discard
+          // TO DO - NO !!!!! this.gc.game.addDiscardstoBox( this.playersName );
+          // send a message that the players discard process is complete
+          this.gc.playersBoxDiscardsComplete( this.gc.game.state.activePlayers[this.playersIndex] );
+          // Now send the next player message
+          this.gc.playersTurnComplete( this.playersName );
         }
-        // Now there are some card(s) in the discard pile,
-        // we will to change the offset image to increase the overlap as the 
-        // number of cards in the pile increaseses
-        let factor = 50 + (this.cardsinDiscardPile.length * 5);
-        for (let i=0; i< this.cardsinDiscardPile.length; i++) {
-          this.cardsinDiscardPile[i].offset = `-${i * factor}%;`;
-        }
-      }
+        break;
+
+      case (GamePhase.pegging):
+        // Player clicked the [can't] go button ...
+        this.gc.CannotGo( this.playersName );
+        break;
+    }
   }
 
   private UpdateLocals() {
-    this.playersName = this.gameData.whoIsSeatedAt(this.screenPosition);
-    let playersCompassPoint = this.gameData.playersCompassPoint(this.playersName);
-    if( (this.playersName!="") && (playersCompassPoint!="") ) {
-      this.title = "["+ playersCompassPoint +"] : " + this.playersName;
+    if (this.gc.game.config.isSetup!=true) {
+      this.showButton = false;
     }
+    this.playersName = this.gc.game.whoIsSeatedAt(this.screenPosition);
+    this.playersIndex = this.gc.game.getActivePlayerIndex( this.playersName);
+    this.compassPoint = this.gc.game.playersCompassPoint(this.playersName);
+    if( (this.playersName!="") && (this.compassPoint!="") ) {
+      this.title = "["+ this.compassPoint +"] : " + this.playersName;
+      if (this.gc.game.state.currentDealer==this.playersName)
+      {
+        this.title = this.title + " (Dealer)";
+      }
+    }
+
+    // Update view elements: title, message and button text
+    if (this.gc.game.state.currentPhase == GamePhase.unknown) {
+      this.buttonText = "";
+      this.showButton = false;
+    } else if (this.gc.game.state.currentPhase==GamePhase.cuttingForTurnup) {
+      this.actionMessage = "Waiting for " + this.gc.game.state.currentActivePlayer +" to cut ...";
+      this.updateButtonVisibility( false, "" );
+    } else {
+      // Do different things if this is the active player's view
+      if (this.playersName===this.gc.game.state.currentActivePlayer) {
+        switch (this.gc.game.state.currentPhase) {
+          case (GamePhase.discardingToBox):
+            if (this.gc.game.whoAmI == this.gc.game.state.currentDealer ) {
+              this.actionMessage = "Select cards for your box ...";
+            } else {
+              this.actionMessage = "Select cards for " + this.gc.game.state.currentDealer +"'s box ...";
+            }
+            this.updateButtonVisibility( true, "Discard" );
+            break;
+          case (GamePhase.pegging):
+            if ( this.gc.game.state.canPlayerGo( this.playersIndex, this.gc.game.pegging.currentTotal) ) {
+              this.actionMessage = "Select card to play ...";
+              this.updateButtonVisibility( false, "" );
+            } else {
+              // if can't go ...
+              this.actionMessage = "";
+              this.updateButtonVisibility( true, "Go" );
+            }
+        }
+      } else {  
+        let submsg = "";
+        switch (this.gc.game.state.currentPhase) {
+          case (GamePhase.discardingToBox):
+            submsg = " to discard ...";
+            break;
+          case (GamePhase.pegging):
+            submsg = " to play ...";
+            break;
+        }
+        this.actionMessage = "Waiting for " + this.gc.game.state.currentActivePlayer + submsg;
+        this.updateButtonVisibility( false, "not your turn" );
+      }
+    }
+  }
+  
+  updateButtonVisibility( show: boolean, caption: string) {
+    if (environment.DEBUG_NO_SERVER==true) {
+      this.showButton = true;
+    } else {
+      this.showButton = show;
+    }
+    this.buttonText = caption;
   }
 
 }

@@ -1,0 +1,30 @@
+.totalscore_container {
+    align-content: center;
+    text-align: center;
+    font-family: Helvetica;
+    font-size:20px;
+    /* border: 2px solid rgb(0, 0,0);*/
+    border-radius: 15px; 
+    background-color: rgb(114, 205, 228);
+}
+
+.winning {
+    border-radius: 15px; 
+    background-color: rgb(84, 240, 131); 
+}
+
+.losing {
+    border-radius: 15px; 
+    background-color: rgb(238, 89, 89);
+}
+
+
+.numberCircle {
+    width: 100% /*80px*/;
+    line-height:100% /*80px*/;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: center;
+    font-size: 32px;
+    /* border: 3px solid black; */
+}

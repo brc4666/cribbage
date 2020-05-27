@@ -14,7 +14,9 @@ import { CutdeckComponent } from './cutdeck/cutdeck.component';
 import { VerticalhandComponent } from './verticalhand/verticalhand.component';
 import { HorizontalhandComponent } from './horizontalhand/horizontalhand.component';
 
-import { MessagingService } from './_services/messagingservice.service'
+import { GameControllerService } from './_services/gamecontroller.service';
+import { ScoreHandsComponent } from './score-hands/score-hands.component';
+import { GameoverComponent } from './gameover/gameover.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { MessagingService } from './_services/messagingservice.service'
     DiscardpileComponent,
     CutdeckComponent,
     VerticalhandComponent,
-    HorizontalhandComponent 
+    HorizontalhandComponent,
+    ScoreHandsComponent,
+    GameoverComponent
   ],
   imports: [
     // HttpClientModule,
@@ -34,7 +38,7 @@ import { MessagingService } from './_services/messagingservice.service'
     BrowserModule,
     FlexLayoutModule
   ],
-  providers: [MessagingService],
+  providers: [GameControllerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

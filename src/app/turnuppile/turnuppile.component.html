@@ -1,5 +1,11 @@
-<div class="turnuppile_container">
-    <section class="cardwrapper">   
-            <img src='{{turnUp.imageFile}}' alt=turnUp.card>
-     </section>
-</div>>
+<div class="turnuppile">
+
+  <div class="turnuppile_container">
+    <section class="turnup_card"> 
+        <section class="cardwrapper" *ngIf="gc.game.state.turnUpCardImage!=='back.png'">
+          <img src='{{assetsPath}}{{gc.game.state.turnUpCardImage}}' alt=turnUp.card>
+        </section>
+    </section>
+  </div>
+
+</div>

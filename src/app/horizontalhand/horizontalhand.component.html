@@ -1,34 +1,31 @@
-<div class={{cssClassname}}>
+<div class={{cssClassname}} 
+    [class.activePlayer]="playersName===gc.game.state.currentActivePlayer" >
 
-    <section class="playersname">
-        {{title}}
-   
-        <section class="playerscards">
-            <section class="hand"> 
-                <section class="cardwrapper" *ngFor="let card of cardsinHand">
-                    <span [class.playable]="card.isVisible===true">
+        <div class="headingscontainer" >
+            <section class="playersname"> 
+                {{title}}
+            </section>
+            <section class="playermessage"> 
+                {{actionMessage}}
+            </section>   
+        </div>
+    
+        <div class="handcontainer" *ngIf="playersIndex>=0">
+            <section class="playerscards"  *ngIf="this.gc.game.state.activePlayers[playersIndex].hand"> 
+                <section class="cardwrapper" *ngFor="let card of gc.game.state.activePlayers[playersIndex].hand">
+                    <span [class.playable]="isCardPlayable(card)" [class.hidden]="isCardHidden(card)">
                         <img 
                         (click)="onSelectCard(card)" 
-                        src='{{card.imageFile}}' alt=card.card>
+                        src='{{assetsPath}}{{card.imageFile}}' alt=card.card>
                     </span>
                 </section>
             </section>
 
-            <section class="spacer">
-                <button type="button" class="button" (click)="onButtonClick()">Go</button>
+            <section class="buttoncontainer" [class.hidden]="showButton===false">
+                <button type="button" class="actionbutton" (click)="onButtonClick()">{{buttonText}}</button>
             </section>
 
-            <section class="discardpile">     <!-- Move this outside the parent 'hand' section to display below cards in hand -->
-                <span class="discardwrapper" *ngFor="let discard of cardsinDiscardPile">  
-                    <span [class.hidden]="discard.isVisible===false">
-                    <img [ngStyle]="{ left: discard.offset }" src='{{discard.imageFile}}' alt=discard.card>
-                    <!-- [ngStyle]="{ left: discard.offset }"-->
-                    </span>
-                </span>
-            </section>
-       
-        </section>
+        </div>
       
-    </section>
 </div>
 

@@ -1,11 +1,9 @@
-<div class="totalscore_container">
-    <section class="scoretitle">
-        Score: {{gameData.gameScores[scoreIndex].displayname}} 
-        <section class="scorebox">
-            <!-- 
-                <div *ngIf="gameData.isSetup">{{gameData.gameScores[scoreIndex].score}}</div>
-            -->
+<div class="totalscore_container" *ngIf="gc.game.config.isSetup">
+    <section  *ngIf="scoreIndex" class="scoretitle" [class.winning]="gc.game.scoring.isWinning(scoreIndex)"
+                                                    [class.losing]="gc.game.scoring.isLosing(scoreIndex)">
+        {{gc.game.scoring.getDisplayName(scoreIndex)}}
+        <section class="numberCircle">
+            {{gc.game.scoring.getScore(scoreIndex)}}
         </section>
-
     </section>
 </div>

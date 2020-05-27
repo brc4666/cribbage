@@ -1,0 +1,43 @@
+<div class="scorehands-modal">
+    <div class="scorehands-modal-body">
+
+        <div class="scoreboard">
+
+            <div class="headingscontainer" >
+                <section class="title"> 
+                    {{title}}
+                </section>
+            </div>
+
+            <div class="handcontainer" *ngIf="playersIndex>=0">
+                <section class="playerscards"  *ngIf="this.gc.game.state.activePlayers[playersIndex].hand"> 
+                    <section class="cardwrapper" *ngFor="let card of cards">
+                        <span [class.hidden]="card.isInVisible===true">
+                            <img src='{{assetsPath}}{{card.imageFile}}' alt=card.card>
+                        </span>
+                    </section>
+                </section>
+            </div>
+
+            <div class="scorebreakdown">
+                <section class="title" style="font-size: 12pt;">Summary
+                    <ul class="scorebreakdownul">
+                        <li *ngFor="let txt of this.scorer.details; index as i">{{this.scorer.scoreDetails(i)}}</li>
+                    </ul>
+                </section>
+            </div>
+
+            <section class="buttoncontainer" [class.hidden]="showButton===false">
+                <button type="button" class="actionbutton" (click)="onButtonClick()">{{buttonText}}</button>
+            </section>
+            <section class="playermessage" [class.hidden]="showButton===true">
+                {{waitmessage}}
+            </section>
+            <section class="buttoncontainer">
+                <button type="button" class="actionbutton" (click)="onRescoreClick()">Rescore</button>
+            </section>
+        </div>
+        
+    </div>
+</div>
+<div class="scorehands-modal-background"></div>

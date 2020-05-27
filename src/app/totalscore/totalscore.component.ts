@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { GameData } from '../_classes/gamedata';
+import { GameControllerService } from '../_services/gamecontroller.service';
 
 @Component({
   selector: 'app-totalscore',
@@ -11,12 +11,10 @@ import { GameData } from '../_classes/gamedata';
 export class TotalscoreComponent implements OnInit {
 
   // Component Inputs
-  @Input() gameData: GameData;
   seats: string = "";
   scoreIndex: number = 0;
 
-  constructor() { }
-
+  constructor(public gc: GameControllerService ) { }
 
   ngOnInit(): void {
     /*

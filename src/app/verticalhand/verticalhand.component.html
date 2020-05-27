@@ -1,35 +1,28 @@
-<div class={{cssClassname}}>
+<div *ngIf="gc.game.state.currentActivePlayer!=''" class={{cssClassname}} 
+    [class.activePlayer]="playersName===gc.game.state.currentActivePlayer">
 
-    <section class="namewrapper">
+    <div class="headingscontainer">
         <section class="playersname"> 
             {{title}}
         </section>
-    </section>
-        <section class="playerscards">
-            <section class="hand"> 
-                <section class="cardwrapper" *ngFor="let card of cardsinHand">
-                    <span [class.playable]="card.isVisible===true">
-                        <img 
-                        (click)="onSelectCard(card)" 
-                        src='{{card.imageFile}}' alt=card.card>
-                    </span>
-                </section>
-            </section>
+    </div>
 
-            <!--
-            <section class="spacer">
- 
-            </section>
+    <!-- style="transform: rotate(270deg);  -->
 
-            <section class="discardpile">    
-                <span class="discardwrapper" *ngFor="let discard of cardsinDiscardPile">  
-                    <span [class.hidden]="discard.isVisible===false">
-                    <img [ngStyle]="{ left: discard.offset }" src='{{discard.imageFile}}' alt=discard.card>
-                    </span>
+    <div class="handcontainer" >
+
+        <section class="vplayerscards" *ngIf="playersIndex>=0"> 
+            <section class="vcardwrapper" *ngFor="let card of gc.game.state.activePlayers[playersIndex].hand">
+                <span [class.playable]="isCardPlayable(card)">
+                    <img 
+                    (click)="onSelectCard(card)" 
+                    src='{{assetsPath}}{{card.imageFile}}' alt=card.card>
                 </span>
             </section>
-            -->
-        
-    </section>
+        </section>
 
+    </div>
+   
+    
 </div>
+

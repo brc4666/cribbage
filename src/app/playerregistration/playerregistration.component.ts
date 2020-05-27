@@ -2,9 +2,7 @@ import { Component, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { GameData } from '../_classes/gamedata';
-
-import { MessagingService } from '../_services/messagingservice.service';
+import { GameControllerService } from '../_services/gamecontroller.service';
 import { MessageType, MessageHeader } from '../_classes/common';
 
 @Component({
@@ -19,24 +17,22 @@ export class PlayerRegistrationComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private msgstoProcess: any[] = [MessageType.game, MessageType.players];
 
-  // inputs
-  @Input() gameData: GameData;
-
   private element: any;
   closeButtonText: string;
+  closeButtonActive: boolean = false;
   private selectedPlayerIndex: number = -1;
   private numConnections: number = 0;
   localmessages: string[] = [];
 
 
   constructor(private el: ElementRef,
-              public messageService: MessagingService) 
+              public gc: GameControllerService) 
   { 
     this.element = el.nativeElement;
     // subscribe to get messages
-    this.subscription = this.messageService.getMessage()
+    this.subscription = this.gc.getMessage()
                         .pipe( filter( (msg: any[]) => (this.msgstoProcess.indexOf(msg[0])>=0) ) ) 
-                        .subscribe( (message: any[]) => { this.onMessage(message) } );
+                        .subscribe( (message: any[]) => { this.onInternalMessage(message) } );
   }
 
   ngOnDestroy() {
@@ -45,51 +41,54 @@ export class PlayerRegistrationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.countConnections();
   }
 
-  onMessage(msg: any[]) {
+  onInternalMessage(msg: any[]) {
     if (undefined==msg)
       return;
 
     let msgheader = msg[1];
-    let msgdata = msg[2];
-
     switch (msgheader) {
-      case MessageHeader.playerjoined:
-        for (let i=0; i<this.gameData.potentialPlayers.length; i++) {
-          if ( (i != this.selectedPlayerIndex) && (this.gameData.potentialPlayers[i].name === msgdata) ) { 
-            this.gameData.potentialPlayers[i].isConnected = true;
+      case MessageHeader.playerjoined: 
+        let newplayerName = msg[2];   
+        for (let i=0; i<this.gc.game.config.potentialPlayers.length; i++) {
+          if ( (i != this.selectedPlayerIndex) && (this.gc.game.config.potentialPlayers[i].name === newplayerName) ) { 
+            this.gc.game.config.potentialPlayers[i].isConnected = true;
           }
         }
         this.countConnections();
         break;
 
-      case MessageHeader.playerleft:
-        for (let i=0; i<this.gameData.potentialPlayers.length; i++) {
-          if ( (i != this.selectedPlayerIndex) && (this.gameData.potentialPlayers[i].name === msgdata) ) { 
-            this.gameData.potentialPlayers[i].isConnected = false;
+      case MessageHeader.playerleft:   
+        let leftplayerName = msg[2];
+        for (let i=0; i<this.gc.game.config.potentialPlayers.length; i++) {
+          if ( (i != this.selectedPlayerIndex) && (this.gc.game.config.potentialPlayers[i].name === leftplayerName) ) { 
+            this.gc.game.config.potentialPlayers[i].isConnected = false;
           }
         }
         this.countConnections();
         break;
 
-      case MessageHeader.initgame:
-        // shouldn't need to do this- should already have been done !
-        // this.gameData.setwhoIAm( this.gameData.potentialPlayers[this.selectedPlayerIndex].name );
-        this.element.style.display = 'none';
-        break
+      case MessageHeader.gameinitialising:
+        // someone else has clicked 'start game' ... and this messgae is to stop others clicking the same button!
+        this.closeButtonText = "Game initialising ...";
+        break;
       
-      case MessageHeader.refreshgame:
-        // shouldn't need to do this- should already have been done !
-        // this.gameData.setwhoIAm( this.gameData.potentialPlayers[this.selectedPlayerIndex].name );
+      case MessageHeader.gamestarted:       
+        // The game is off and running !!!
+        this.gc.game.setwhoIAm( this.gc.game.config.potentialPlayers[this.selectedPlayerIndex].name );
+        this.element.style.display = 'none';
         break;
     }
   }
 
-  onStartGame() {
-    this.gameData.setwhoIAm( this.gameData.potentialPlayers[this.selectedPlayerIndex].name );
-    this.element.style.display = 'none';
-    this.messageService.startGame(this.numConnections);
+  onStartGameButton() {
+    if (this.closeButtonActive) {
+      this.gc.game.setwhoIAm( this.gc.game.config.potentialPlayers[this.selectedPlayerIndex].name );
+      this.element.style.display = 'none';
+      this.gc.startGame();
+    }
   }
 
   onCancel() {
@@ -98,36 +97,36 @@ export class PlayerRegistrationComponent implements OnInit, OnDestroy {
 
   onClickConnect(playerIndex: number) {
     if (this.isButtonSelectable(playerIndex) ) {
-      this.gameData.potentialPlayers[playerIndex].isConnected = !this.gameData.potentialPlayers[playerIndex].isConnected; 
-      if (this.gameData.potentialPlayers[playerIndex].isConnected) {
+      this.gc.game.config.potentialPlayers[playerIndex].isConnected = !this.gc.game.config.potentialPlayers[playerIndex].isConnected; 
+      if (this.gc.game.config.potentialPlayers[playerIndex].isConnected) {
         // store the index of the player this user has connected as 
         // we'll use this to alter behaviour of other players buttons 
         // so that this user cannot connect as more than one player 
         this.selectedPlayerIndex = playerIndex;
-        this.gameData.setwhoIAm( this.gameData.potentialPlayers[this.selectedPlayerIndex].name );
+        this.gc.game.setwhoIAm( this.gc.game.config.potentialPlayers[this.selectedPlayerIndex].name );
         // send msg to server that this player has connected
-        this.messageService.setupSocketConnection(this.gameData.potentialPlayers[playerIndex].name);
-        this.messageService.connectMe(this.gameData.potentialPlayers[playerIndex].name);
+        this.gc.setupSocketConnection(this.gc.game.config.potentialPlayers[playerIndex].name);
+        this.gc.connectMe(this.gc.game.config.potentialPlayers[playerIndex].name);
       }
       
       else {
         // reset selectedindex to indicate none chosen
         this.selectedPlayerIndex = -1;
-        this.gameData.setwhoIAm( "" );
+        this.gc.game.setwhoIAm( "" );
         // clear connection status of all players 
         // NB. We can do this because when players join, they get backa list of all other players already in the game
-        for( let i=0; i<this.gameData.potentialPlayers.length; i++) {
-          this.gameData.potentialPlayers[i].isConnected = false;
+        for( let i=0; i<this.gc.game.config.potentialPlayers.length; i++) {
+          this.gc.game.config.potentialPlayers[i].isConnected = false;
         }
         // send msg to server that this player has disconnected
-        this.messageService.disconnectMe(this.gameData.potentialPlayers[playerIndex].name);
+        this.gc.disconnectMe(this.gc.game.config.potentialPlayers[playerIndex].name);
       }
     } 
     this.countConnections();
   }
 
   getButtonStyle(playerIndex: number): string {
-    if (this.gameData.potentialPlayers[playerIndex].isConnected) {
+    if (this.gc.game.config.potentialPlayers[playerIndex].isConnected) {
       // someone has connected as this player ... but it might be a remote connection
       return (playerIndex === this.selectedPlayerIndex) ? "red" : "green";
     }
@@ -140,7 +139,7 @@ export class PlayerRegistrationComponent implements OnInit, OnDestroy {
   }
   
   getButtonText(playerIndex: number): string {
-    if (this.gameData.potentialPlayers[playerIndex].isConnected) {
+    if (this.gc.game.config.potentialPlayers[playerIndex].isConnected) {
       // someone has connected as this player ... but it might be a remote connection
       return (playerIndex === this.selectedPlayerIndex) ? "Disconnect" : "Connected";
     }
@@ -157,7 +156,7 @@ export class PlayerRegistrationComponent implements OnInit, OnDestroy {
     } else if (this.selectedPlayerIndex >-1) {
       // this user has already selected one of the other items, so cannot select an additional one
       return false;
-    } else if (this.gameData.potentialPlayers[playerIndex].isConnected) { 
+    } else if (this.gc.game.config.potentialPlayers[playerIndex].isConnected) { 
       // this player has connected from a remote machine
       return false;
     } else { 
@@ -167,17 +166,20 @@ export class PlayerRegistrationComponent implements OnInit, OnDestroy {
 
   countConnections() {
     this.numConnections = 0;
-    for (let i=0; i<this.gameData.potentialPlayers.length; i++) {
-      if (this.gameData.potentialPlayers[i].isConnected) { 
+    for (let i=0; i<this.gc.game.config.potentialPlayers.length; i++) {
+      if (this.gc.game.config.potentialPlayers[i].isConnected) { 
         this.numConnections++; 
       }
     }
     if (2 == this.numConnections) {
       this.closeButtonText = "Start Two Player Game";
+      this.closeButtonActive = true;
     } else if (4 == this.numConnections) {
       this.closeButtonText = "Start Four Player Game";
+      this.closeButtonActive = true;
     } else {
-      this.closeButtonText = undefined;
+      this.closeButtonText = "Waiting for other players";
+      this.closeButtonActive = true;
     }
 
   }

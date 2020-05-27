@@ -1,3 +1,111 @@
 .container33 {
-    height: 33.33%;
+    height: 32%;
+}
+
+.container10 {
+    height: 6%;
+    width: 100%;
+    align-content: center;
+    margin: auto;
+}
+
+/*
+.msgcontainer {
+    display: flex;
+    border: 1px solid blue;
+    border-radius: 2px; 
+    box-sizing: border-box;
+    height: 100%;  
+    width: 100%;
+    align-self: center;
+    margin: auto;
+  }
+
+.msgstyle {
+    align-self: center;
+    display: flex;
+    text-align: center;
+    vertical-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font: Helvetica;
+    font-size: 10pt;
+    margin: auto;
+}
+*/
+
+.deckofcards {
+    display: flex;
+    box-sizing: border-box;
+    padding: 2px;
+    border: 1px solid black;
+    border-radius: 15px;
+    overflow: auto;
+  }
+
+  .deckofcards_container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    min-width: 100%; 
+    border: 1px solid blue;
+    border-radius: 15px;  
+    padding: 2px;
+    box-sizing: border-box;
+  }
+
+  .blank_card {
+    display: flex;
+    /* border: 1px solid red;
+    border-radius: 15px;  */
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  .cardwrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
+    max-width: 57px;
+    max-height: 70px;
+    min-width: 2.5%;
+  }
+
+  .cardwrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+
+
+  .img {
+    max-width: 57px;
+    max-height: 70px;
+  }
+
+
+.pegscore_container {
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    vertical-align: center;
+    /* text-align: center; */
+    font-family: Helvetica;
+    font-size:20px;
+    border: 2px solid blue;
+    border-radius: 15px; 
+    /* background-color: rgb(114, 205, 228); */
+}
+  
+.numberCircle {
+    width: 100%;
+    line-height:100% ;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: center;
+    font-size: 32px;
+    /* border: 3px solid black; */
 }

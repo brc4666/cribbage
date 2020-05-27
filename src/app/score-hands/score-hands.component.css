@@ -1,0 +1,177 @@
+scorehands-modal {
+    /* modals are hidden by default */
+    display: none;
+}
+
+.scorehands-modal {
+    /* modal container fixed across whole screen */
+    width: 500px;         /* 50%; */
+    height: 100%;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    
+    /* z-index must be higher than .scorehands-modal-background */
+    z-index: 1000;
+    /* enables scrolling for tall modals */
+    overflow: auto;
+}
+    
+.scorehands-modal-body {
+    padding: 20px;
+    background: black;
+    /* margin exposes part of the modal background */
+    margin: 40px;
+}
+
+.scorehands-modal-background {
+    /* modal background fixed across whole screen */
+    position: fixed;
+    background-size: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* semi-transparent black  */
+    background-color: #000;
+    opacity: 0.0; 
+    /* z-index must be below .scorehands-modal and above everything else  */
+    z-index: 900;
+}
+
+body.scorehands-modal-open {
+    /* body overflow is hidden to hide main scrollbar when modal window is open */
+    overflow: hidden;
+}
+
+.scoreboard {
+    box-sizing: border-box;
+    height: 100%;  
+    min-width: 100%;
+    padding: 2px; 
+    background: #fff;
+    border: 2px solid rgb(150, 100, 100);
+    border-radius: 0px;
+    overflow: auto;
+  }
+  
+  .headingscontainer {
+    display: flex;
+    /* border: 1px solid blue;
+    border-radius: 25px; */
+    box-sizing: border-box;
+    height: 20%;  
+    min-width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .title{
+    display: inline-flex;
+    font: Helvetica;
+    font-size:14pt;
+    font-weight: bold;
+    text-align: left;
+    /* border: 1px solid cyan;
+    border-radius: 25px; */
+    padding: 5px;
+    box-sizing: border-box;
+ 
+  }
+
+  .handcontainer {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    min-width: 100%;
+    justify-self: center;
+    /* border: 2px solid black;
+    border-radius: 15px; */
+    padding: 5px;
+    box-sizing: border-box;
+  }
+
+  .playerscards {
+    display: flex;
+    /*
+    border: 1px solid red;
+    border-radius: 15px; */
+    justify-content: left;
+    align-items: left;
+    padding: 1px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  .cardwrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 2px;
+    width: 69px;
+    height: 85px;
+    min-width: 2.5%;
+  }
+
+  .cardwrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+ 
+  .buttoncontainer {
+    display: flex;
+    /* border: 1px solid red;
+    border-radius: 15px; */
+    align-content: right;
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
+    box-sizing: border-box;
+  }
+
+  .actionbutton {
+    align-content: flex-end;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 2px 2px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .playermessage{
+    display: flex;
+    font: Arial;
+    font-size:10pt;
+    color: red;
+    font-style: italic;
+    justify-content: flex-end;
+    align-content: flex-end;
+    vertical-align: center;
+    /* border: 1px solid cyan;
+    border-radius: 25px; */
+    padding: 0px;
+    box-sizing: border-box;
+    
+    min-width: 60%; 
+  }
+
+  .scorebreakdownul {
+    list-style-type: circle;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    align-content: left;
+    text-align: left;
+    font: Helvetica;
+    font-size:10pt;
+  }

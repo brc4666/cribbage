@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  SOCKET_ENDPOINT: 'http://localhost:8081'
+  SOCKET_ENDPOINT: 'http://localhost:8081',
+  ASSETPATH: './assets/cards/',
+  DEBUG: true,
+  DEBUG_NO_SERVER: false,
+  DEBUG_NUMPLAYERS: 2
 };
 
 /*

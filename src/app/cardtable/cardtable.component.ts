@@ -1,5 +1,8 @@
-import { Input, Component, OnInit } from '@angular/core';
-import { GameData } from '../_classes/gamedata';
+import { Component, OnInit } from '@angular/core';
+
+import { environment } from '../../environments/environment';
+
+import { GameControllerService } from '../_services/gamecontroller.service';
 
 @Component({
   selector: 'app-cardtable',
@@ -8,9 +11,9 @@ import { GameData } from '../_classes/gamedata';
 })
 export class CardtableComponent implements OnInit {
 
-  @Input() gameData: GameData;
-  
-  constructor() { }
+  assetsPath: string = environment.ASSETPATH;
+
+  constructor(public gc: GameControllerService) { }
 
   ngOnInit(): void {
   }

@@ -1,0 +1,52 @@
+.headercontainer {
+    height: 5%;
+}
+
+.topcontainer {
+    height: 25%;
+}
+
+.middlecontainer {
+    height: 120%;
+    margin: 2px;
+}
+
+.bottomcontainer {
+    height: 5%;
+}
+
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+    font: Helvetica;
+    font-size: 20pt;
+    padding:5px;
+    font-weight: bold;
+    color: blueviolet;
+    justify-self: center;
+}
+
+.msgcontainer {
+    display: flex;
+    
+    border: 1px solid blue;
+    border-radius: 2px; 
+    
+    align-content: center;
+    box-sizing: border-box;
+    height: 100%;  
+    width: 100%;
+    align-self: center;
+    margin: auto;
+  }
+
+.msgstyle {
+    align-self: center;
+    display: flex;
+    text-align: center;
+    vertical-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font: Helvetica;
+    font-size: 12pt;
+    color: blue;
+    margin: auto;
+}

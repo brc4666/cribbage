@@ -1,18 +1,20 @@
-import { Input, Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { MessagingService } from '../_services/messagingservice.service';
-import { MessageType, MessageHeader } from '../_classes/common';
+import { environment } from '../../environments/environment';
+import { GameControllerService } from '../_services/gamecontroller.service';
+import { MessageType, MessageHeader, GamePhase } from '../_classes/common';
 
 import { CardinHand, DiscardedCard } from '../_classes/cardinhand';
-import { GameData } from '../_classes/gamedata';
 
 @Component({
   selector: 'app-verticalhand',
-  inputs: ['seat', 'cssClassname', 'showCards'],
+  inputs: ['screenPosition', 'cssClassname', 'showCards'],
   templateUrl: './verticalhand.component.html',
   styleUrls: ['./verticalhand.component.css']
+  // templateUrl: '../horizontalhand/horizontalhand.component.html',
+  // styleUrls: ['../horizontalhand/horizontalhand.component.css']
 })
 
 export class VerticalhandComponent implements OnInit, OnDestroy {
@@ -20,28 +22,30 @@ export class VerticalhandComponent implements OnInit, OnDestroy {
    // intra-component messaging variables
    private subscription: Subscription;
    private msgstoProcess: any[] = [MessageType.game, MessageType.cards];
- 
-   // Cmponent Inputs
-   @Input() gameData: GameData;
    
    // Component parameters
-   screenPoint: string = "";
+   screenPosition: string = "";
    cssClassname: string = "";
    showCards: string = "false"; 
+
+  // member variables
+  playersName: string;              // the player's name for this view 
+  playersIndex: number = -1;        // index of this player in gameData.activePlayers[]
+  compassPoint: string = "";        // the compass point of this player
+  title: string = "";               // for display on view      
+  selectedCard: string;             // the card clicked in the view
    
-   // member variables
-   playersName: string;              // the player's name for this view 
-   title: string = "";               // for display on view         
-   selectedCard: string;             // the card clicked in the view
+  // Handy values to control view
+  assetsPath: string = environment.ASSETPATH;
    
-      cardsinHand: CardinHand[] = [];
+   cardsinHand: CardinHand[] = [];
    cardsinDiscardPile: DiscardedCard[] = [];
    isMyTurn: boolean; 
   
-  constructor(public messageService: MessagingService ) {
-    this.subscription = this.messageService.getMessage()
+  constructor(public gc: GameControllerService ) {
+    this.subscription = this.gc.getMessage()
                         .pipe( filter( (msg: any[]) => (this.msgstoProcess.indexOf(msg[0])>=0) ) ) 
-                        .subscribe( (message) => { this.onMessage(message) } );
+                        .subscribe( (message) => { this.onInternalMessage(message) } );
   }
 
   
@@ -52,98 +56,95 @@ export class VerticalhandComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     let showCards = (this.showCards.toLowerCase() == "true");
-
-    this.cardsinHand.push( new CardinHand(1, '9s', showCards, true));
-    this.cardsinHand.push( new CardinHand(2, '7c', showCards, true));
-    this.cardsinHand.push( new CardinHand(3, 'tc', showCards, true));
-    this.cardsinHand.push( new CardinHand(4, 'kc', showCards, true));
-    this.cardsinHand.push( new CardinHand(5, '3c', showCards, true));
-
-    // Create one invisibl element in the discard pile to size the container
-    this.cardsinDiscardPile.push( new DiscardedCard(1, '8d', false));
-
-    
+    this.UpdateLocals();
   }
 
-  onMessage(msg: any[]) {
+  onInternalMessage(msg: any[]) {
     if (msg==undefined) 
        return;
 
     let msgheader = msg[1];
-//    let msgdata = msg[2];
-
     switch ( msgheader ) {
-      
-      case MessageHeader.refreshgame:        
+      case MessageHeader.refreshgame: 
+      case MessageHeader.statusupdate:
         this.UpdateLocals();
         break;
-    
-      case MessageHeader.refreshcards:
-        break;
-      
       default:
         break;
     }
+  }
+  
+  isCardPlayable(card: CardinHand): boolean {
+    return ( (card.showCard==true) && (this.playersName===this.gc.game.state.currentActivePlayer) );
+  }
 
-  }
-  
-  onClickSpacer() {
-    this.refreshDiscardPile();
-  }
-  
   onSelectCard(card: CardinHand) {
-    if(card.isVisible===true && card.played===false) {
-      this.selectedCard = card.card; 
-      // Update the discard pile with the selected card
-      this.addCardtoMyDiscardPile( card.card );
-      // update the 'hand' with the fact this card has been played (and cannot be played again)
-      this.cardsinHand[card.id-1].cardPlayed(); 
-      this.gameData.sharedCard = card.card;
-      let msg = this.playersName + " discarded " + card.card;
-      // this.sendMessage( msg );
+    if ( (card.showCard!==true) || (card.played===true) ) {
+      // we've got a click message from a card that has already been played,
+      // or should be invisible ... neither of which should allow a clock, but ...
+      alert("Not sure why you were allowed to, but you cannot play that card. Sorry!")
+      return;
     }
+
+    switch (this.gc.game.state.currentPhase) {
+      case (GamePhase.pegging):
+        break;
+      case (GamePhase.discardingToBox):
+        // check correct number of cards are ready to be discarded
+        if (this.gc.game.getNumDiscards(this.playersName) >= this.gc.game.state.requiredDiscardsforBox)
+        {
+          alert("You cannot discard anymore cards!");
+        } else {
+          // We are good to go with the discard operation
+          this.selectedCard = card.card; 
+          // Update the current player's list of discarded cards
+          // NB. 
+          this.gc.game.addCardtoDiscardPile(this.playersName, card.card);
+
+        }
+        break;
+    }
+ 
   }
   
   onButtonClick() {
-    // this.sendMessage( this.playersName + " clicked his button" );
-
+    switch (this.gc.game.state.currentPhase) {
+      case (GamePhase.discardingToBox):
+        // Have we got the correct number of cards?
+        if (this.gc.game.getNumDiscards(this.playersName) < this.gc.game.state.requiredDiscardsforBox)
+        {
+          alert("You must discard " + this.gc.game.state.requiredDiscardsforBox + " cards to the box!");
+        } else {
+          // Yes - we are cleared to commit the discard
+          this.gc.game.addDiscardstoBox( this.playersName );
+          // Now send the next player message
+          this.gc.playersTurnComplete( this.playersName );
+        }
+        break;
+      case (GamePhase.pegging):
+        alert("Needs some work !!!!");
+        break;
+    }
+    // Check is correct number of cards discarded
+    // and cycle who is up next
   }
   
-  private addCardtoMyDiscardPile (cardId: string) {
-    this.gameData.cardDiscarded(this.playersName, cardId);
-    this.refreshDiscardPile();
-    
-  }
-
-  refreshDiscardPile() {
-      return;
-      // Clear the local discard array to remove any dummy cards etc.
-      this.cardsinDiscardPile.splice(0, this.cardsinDiscardPile.length);
-      // get a copy of discarded cards from the global controller
-      var discards:string[] = this.gameData.getDiscardedCards(this.playersName);
-      if (discards.length <=0 ) {
-        // The player has not discarded a card yet,
-        // so we'll add a dummy invisible card to the local discard pile to size the container
-        this.cardsinDiscardPile.push( new DiscardedCard(1, 'ad', false));
-      } else if ( 0 < discards.length ) {
-        // now add all the cards in the global controller to local array
-        for (let i=0; i < discards.length; i++) {
-          this.cardsinDiscardPile.push( new DiscardedCard(i+1, discards[i]) );
-        }
-        // Now there are some card(s) in the discard pile,
-        // we will to change the offset image to increase the overlap as the 
-        // number of cards in the pile increaseses
-        let factor = 50 + (this.cardsinDiscardPile.length * 5);
-        for (let i=0; i< this.cardsinDiscardPile.length; i++) {
-          this.cardsinDiscardPile[i].offset = `-${i * factor}%;`;
-        }
-      }
-  }
-
   private UpdateLocals() {
-    this.playersName = this.gameData.whoIsSeatedAt(this.screenPoint);
-    let playersCompassPoint = this.gameData.playersCompassPoint(this.playersName);
-    this.title = "["+ playersCompassPoint +"] : " + this.playersName;
+    if (this.gc.game.config.isSetup!=true) {
+      // happens in debug mode. It's ok
+      return;
+    }
+    this.playersName = this.gc.game.whoIsSeatedAt(this.screenPosition);
+    this.playersIndex = this.gc.game.getActivePlayerIndex( this.playersName);
+    this.compassPoint = this.gc.game.playersCompassPoint(this.playersName);
+    if( (this.playersName!="") && (this.compassPoint!="") ) {
+      this.title = "["+ this.compassPoint +"] : " + this.playersName;
+      if (this.gc.game.state.currentDealer==this.playersName)
+      {
+        this.title = this.title + " (Dealer)";
+      }
+    }
+
   }
   
 }

@@ -1,12 +1,15 @@
 <div class="players-modal">
     <div class="players-modal-body">
+        <h1>Who's playing ... ?</h1>
 
-        <div class="playerregistration">
-
-            <h1>Who's playing ... ?</h1>
-
-            <!-- Lookup https://stackoverflow.com/questions/55123762/declare-a-variable-and-use-it-in-html -->
-
+        <!-- Lookup https://stackoverflow.com/questions/55123762/declare-a-variable-and-use-it-in-html -->
+        <div class="height: 40%" 
+            fxLayout
+            fxLayout.xs="column"
+            fxLayoutAlign="center"
+            fxLayoutGap="10px"
+            fxLayoutGap.xs="0">
+            <div fxFlex="50%">
                 <div class="rowcontainer">
                     <div class="playercontainer">
                         <div class="playersname">{{this.gc.game.config.potentialPlayers[0].name}}</div>
@@ -29,8 +32,16 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
+        </div>
     
+        <div class="height: 40%"
+            fxLayout
+            fxLayout.xs="column"
+            fxLayoutAlign="center"
+            fxLayoutGap="10px"
+            fxLayoutGap.xs="0">
+            <div fxFlex="50%">
                 <div class="rowcontainer">
                     <div class="playercontainer">
                         <div class="playersname">{{this.gc.game.config.potentialPlayers[1].name}}</div>
@@ -55,7 +66,19 @@
                         <!-- <span [class.selectable]="isSelectable(3)"> -->
                     </div>
                 </div>
-                <button  class="connectbutton selectable" style="margin:10px;" (click)="onStartGameButton()">{{this.closeButtonText}}</button>
+            </div>
+        </div>
+
+        <div class="height: 20%"
+            fxLayout
+            fxLayoutMargin="10px"
+            fxLayout.xs="column"
+            fxLayoutAlign="center"
+            fxLayoutGap="40px"
+            fxLayoutGap.xs="0">
+            <div fxFlex="50%">
+                <button *ngIf="this.closeButtonText" class="connectbutton selectable" style="margin:10px;" (click)="onStartGameButton()">{{this.closeButtonText}}</button>
+            </div>
         </div>
     </div>
 </div>

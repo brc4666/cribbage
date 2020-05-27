@@ -1,59 +1,65 @@
 class AConnection {
     socket;
-    assocplayer;
-    constructor(socket, name) {
+    name;
+    connected;
+    ingame;
+    constructor(socket) {
       this.socket = socket;
-      this.assocplayer = name;
+      this.name = socket.name;
+      this.connected = true;
+      this.ingame = false;
     }
   }
   
-  class AllConnections {
-    connections;
-    players;
-  
-    constructor() { 
-      this.connections = [];
-      this.players = [];
+class AllConnections {
+  connections;
+
+  constructor() { 
+    this.connections = [];
+  }
+
+  connectionsCount() {
+    return this.connections.length;
+  }
+
+  findConnection(name) {
+    for (let i=0; i< this.connections.length; i++) {
+      if (name===this.connections[i].name) {
+        return i;
+      }
     }
-  
-    Players() {
-      return this.players;
-    }
+    return -1; 
+  }
     
-    AddConnection( socket, name ) {
-      this.connections.push( new AConnection( socket, name) );
-      this.players.push( name );
-      return this.connections.length;
-    }
+  AddConnection( socket ) {
+    this.connections.push( new AConnection( socket ) );
+    return this.connections.length;
+  }
   
-    AddPlayer( name ) {
-      this.players.push( name );
-      return this.allPlayers.length;
-    }
-  
-    RemovePlayer ( name ) {
-      if (name!="") {
-        var index = this.players.indexOf( name );
-        this.players.splice(index, 1);
-        return this.players.length;
-      }
-    }
-  
-    FindPlayerName( socket ) {
-      for (i=0; i< this.connections.length; i++) {
-        if (socket===this.connections[i].socket) {
-          return this.connections[i].assocplayer;
-        }
-      }
-      return "";
-    }
-  
-    RemoveConnection( socket ) {
-      var index = this.connections.indexOf(socket);
-      var playerindex = this.players.indexOf( socket.name );
-      this.players.splice(playerindex, 1);
+  RemoveConnection( name ) {
+    var index = this.findConnection( name );
+    if (index > -1) {
       this.connections.splice(index, 1);
     }
   }
+
+  joinGame( name ) {
+    for (let i=0; i< this.connections.length; i++) {
+      if (name===this.connections[i].name) {
+        this.connections[i].ingame = true;
+        break;
+      }
+    }
+  }
+
+  dumpConnections( title ) {
+    console.log('   ' + title);
+    console.log('       Number of connections=' +  this.connections.length);
+    for (let i=0; i <  this.connections.length; i++) {
+      console.log( '          Player ' + i + ':' +  this.connections[i].name);
+    }
+  };
+
+}
   
 module.exports = AllConnections;

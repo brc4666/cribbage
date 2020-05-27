@@ -1,38 +1,62 @@
-
 export class CardinHand {
-    id: number;
+    /** the name of the card : the demoniation and suit i.e. js = jack of spades*/
     card: string;
-    isVisible: boolean;
-    sideView: boolean;
+    /** Value of card for scoring purposes */
+    valueofCard: number;
+    /** whether the card has been played (in the correct context) */
     played: boolean;
+    showCard: boolean;                  // not to be confused with showCards on a view
+    isInVisible: boolean = true;
     imageFile: string;
 
-    constructor ( id: number, card: string, isVisible: boolean, isSideView: boolean){
-        this.id = id;
-        this.card = card;
-        this.isVisible = isVisible;
-        this.sideView = isSideView;
+    constructor ( cardname: string, showCard: boolean, isInVisible :boolean = false){
+        this.card = cardname;
+        this.valueofCard = this.calcCardValue(cardname);
         this.played = false;
-        this.lookupCardImage();
+        this.showCard = showCard;
+        this.isInVisible = isInVisible;
+        if (showCard) {
+            this.imageFile = cardname + ".png";
+        } else {
+            this.imageFile = 'back.png';
+        }
+    }   
+
+    get cardValue() : number {
+        if (this.valueofCard<=0) {
+            this.valueofCard = this.calcCardValue(this.card);    
+        } 
+        return this.valueofCard;
     }
 
-    lookupCardImage() {
-        if ( (true==this.played) || (!this.isVisible) )  {
-            if (this.sideView) {
-                this.imageFile = './assets/cards/back-side.png';
-            } else {
-                this.imageFile = './assets/cards/back.png';
-            }
-            
+    /** returns the demonation of the card: i.e. '8' or 'j' or 'a' */
+    get cardDenomination() : string { return this.card.substr(0, 1); }
+
+    calcCardValue(card: string) : number {
+        let value = 0;
+        if (card.length==2) {
+            value = 1 + "a23456789tjqk".indexOf(this.card.substr(0, 1));
+            if (value > 10) value = 10; 
+        }
+        return value;
+    }
+
+    updateCardImage(screenPosition: string) {
+        //'./assets/cards/'
+        if ( (screenPosition=="left") || (screenPosition=="right") ) {
+            // side views never show the face of the card ... only the back ...
+            // and then always the same image 
+            this.imageFile = 'back-side.png'; 
+        } else if ( (true==this.played) || (!this.showCard) )  {
+            this.imageFile = 'back.png';
         } else {
-            this.imageFile = './assets/cards/' + this.card + '.png';
+            this.imageFile = this.card + '.png';
         }
     }
 
     cardPlayed() {
-        this.imageFile = './assets/cards/back.png';
         this.played = true;
-        this.isVisible = false;
+        this.imageFile = 'back.png';
     }
 }
 

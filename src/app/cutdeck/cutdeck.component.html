@@ -1,1 +1,16 @@
-<p>cutdeck works!</p>
+<div class="cutdeck-modal">
+    <div class="cutdeck-modal-body">
+        <div class="cutdeck">
+       
+            <h1>Cut for turn-up ...</h1>
+            <div class="deckcontainer">
+                <section class="deck">   
+                    <section class="cardwrapper" *ngFor="let id of decktocut">  
+                        <img  src='{{assetsPath}}back-half.png' (click)="onSelectCard(id)">
+                    </section>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cutdeck-modal-background"></div>    
