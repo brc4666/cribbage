@@ -498,7 +498,8 @@ app.get('/', function (req, res) {
   // page to be rendered as input 
   // This page should be in the views folder 
   // in the root directory. 
-  res.render('home', {name: 'Brian'}); 
+  // res.render('home', {name: 'Brian'}); 
+  res.send('Cribnight Cribbage Server');
   
 }); 
   
