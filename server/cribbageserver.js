@@ -4,11 +4,27 @@ let fs = require('fs');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var jsonParser = bodyParser.json();
+var path = require('path');
+
+// view engine setup
+// var router = express.Router();
+
+//Tell Express where we keep our index.ejs
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// var indexRouter = require('./routes/index');
+// app.use('/', indexRouter);
+
+
 const MasterGameData = require('./mastergamedata.js');
 const MasterCardinHand = require('./mastergamedata.js');
 const Deck = require('./deck.js');
 const AllConnections = require('./connections.js');
+
+
 
 // array to store details of all current connections and connected players
 var myConnections = new AllConnections;
@@ -29,11 +45,6 @@ var gameStarted = false;
 *
 ******************************/
 
-// socket.io pre-configuration 
-/*
-const Server = require('socket.io');
-const io = new Server();
-*/
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server,{
@@ -44,6 +55,7 @@ const io = require('socket.io')(server,{
   cookie: false
 });
 server.listen(8081);
+// http.createServer(handleRequest).listen(8000);
 
 // Display a message
 var host = server.address().address;
@@ -479,15 +491,19 @@ let handleRequest = (request, response) => {
   });
 };
 
-http.createServer(handleRequest).listen(8000);
 
 
+var sometext = 'Here is some text I want rendered on the screen';
 
-// This responds with "Hello World" on the homepage
-app.get('/', function (req, res) {
-  console.log("Got a GET request for the homepage");
-  res.send('Hello GET');
-} )
+app.get('/', function (req, res) { 
+  // The render method takes the name of the HTML 
+  // page to be rendered as input 
+  // This page should be in the views folder 
+  // in the root directory. 
+  res.render('home', {name: 'Brian'}); 
+  
+}); 
+  
 
 // This responds a GET request for the /brian page.
 app.get('/brian', function (req, res) {
@@ -513,4 +529,4 @@ app.get('/golfers', function (req, res) {
 })
 */
 
-
+module.exports = app;
