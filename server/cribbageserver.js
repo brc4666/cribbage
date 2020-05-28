@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var jsonParser = bodyParser.json();
 var path = require('path');
+var PORT = process.env.PORT || 8081;
 
 // view engine setup
 // var router = express.Router();
@@ -54,7 +55,7 @@ const io = require('socket.io')(server,{
   pingTimeout: 600000,
   cookie: false
 });
-server.listen(8081);
+server.listen(PORT);
 // http.createServer(handleRequest).listen(8000);
 
 // Display a message
