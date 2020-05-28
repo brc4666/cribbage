@@ -194,7 +194,7 @@ function onConnect(socket) {
       // Assign dealer randomly
       masterData.state.currentDealer = masterData.state.activePlayers[ between(0, 1) ].name;
       // TEMP - make Brian the dealer !!!!
-      masterData.state.currentDealer = "Brian";
+      // masterData.state.currentDealer = "Brian";
     }
     else {
       // Compass seats are ok as default ... so just the game scores to initialise
@@ -290,7 +290,6 @@ function onConnect(socket) {
   socket.on('turnupcard', function(turnUpCardIndex) {
     var cardname = fulldeck.getCardAt(turnUpCardIndex);
     console.log ('The turnup card is:' + cardname );
-    cardname = "jd"; // TEMP
     masterData.state.turnup = cardname;
     // if this is a jack, the player scores 2 points 
     // NB. the client(s) will mirror this score on receipt of the 'turnupcard' message
@@ -298,8 +297,7 @@ function onConnect(socket) {
       masterData.state.publicMessage = masterData.state.currentDealer + ' scores 2 for his Heels';
       
       //if (masterData.scoring.incrementPlayersScore( masterData.state.activePlayers[ masterData.getActivePlayerIndex(masterData.state.currentDealer) ].compassSeat, 2) ) {
-      masterData.scoring.incrementPlayersScore( masterData.state.activePlayers[ masterData.getActivePlayerIndex(masterData.state.currentDealer) ].compassSeat, 2)  ;
-      if (1) {
+      if (masterData.scoring.incrementPlayersScore( masterData.state.activePlayers[ masterData.getActivePlayerIndex(masterData.state.currentDealer) ].compassSeat, 2) ) {
         // Someone has won !!!!
         masterData.state.currentPhase = 6; // Hmmmm - game over state !!!
         io.emit('gameover', masterData.state, masterData.scoring);
