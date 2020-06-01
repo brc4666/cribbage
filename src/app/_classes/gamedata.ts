@@ -345,6 +345,8 @@ class GameStatus {
 
 export class GameData{
     // Local (i.e. unshared data)
+    serverAddress: string = "";
+    serverPort: string = "";
     whoAmI: string = "";                
     scoreBox: boolean = false;
 

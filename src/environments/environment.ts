@@ -1,12 +1,22 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+//
+// https://cribbageserver.herokuapp.com/
+//
+// HTTPSERVER_URL: 'http://localhost:8081',
+// SOCKET_ENDPOINT: 'http://localhost:8081',
+//
+// HTTPSERVER_URL: 'https://cribbageserver.herokuapp.com',
+// SOCKET_ENDPOINT: 'https://cribbageserver.herokuapp.com',
 
 export const environment = {
   production: false,
-  SOCKET_ENDPOINT: 'http://localhost:8081',
+  HTTPSERVER_URL: 'https://cribbageserver.herokuapp.com',
+  SOCKET_ENDPOINT: 'https://cribbageserver.herokuapp.com',
   ASSETPATH: './assets/cards/',
   DEBUG: true,
+  DEBUG_SHOWALLHANDS: true,
   DEBUG_NO_SERVER: false,
   DEBUG_NUMPLAYERS: 2
 };

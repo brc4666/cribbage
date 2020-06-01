@@ -1,14 +1,24 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { map, filter } from 'rxjs/operators';
+import { Observable, throwError, of } from 'rxjs';
 import { Subscription } from 'rxjs';
+import { catchError, retry, tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
 import { GameControllerService } from './_services/gamecontroller.service';
 
 import { MessageType, MessageHeader, GamePhase } from './_classes/common';
-import { ServerGameData, ServerGameStatus } from './_classes/serverdata';
 import { ScoreHand } from './_classes/scorer';
 import { CardinHand } from './_classes/cardinhand';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'text', /* ''application/json', */
+    observe: 'response',
+    Authorization: 'my-auth-token'
+  })
+};
 
 @Component({
   selector: 'app-root',
@@ -19,6 +29,8 @@ import { CardinHand } from './_classes/cardinhand';
 export class AppComponent implements OnInit, OnDestroy  {
 
   title = 'Crib Night Cribbage';
+  private serverUrl = environment.HTTPSERVER_URL;
+  
 
   // intra-component messaging variables
   private subscription: Subscription;
@@ -29,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy  {
 
   showAlert = false;
 
-  constructor( public gc: GameControllerService ) {
+  constructor( private http: HttpClient, public gc: GameControllerService ) {
     this.subscription = this.gc.getMessage()
                         .pipe( filter( (msg: any[]) => (this.msgstoProcess.indexOf(msg[0])>=0) ) ) 
                         .subscribe( (message) => { this.onInternalMessage(message) } );
@@ -44,6 +56,13 @@ export class AppComponent implements OnInit, OnDestroy  {
   }
 
   ngOnInit() {
+
+    this.getPort().subscribe( (data:string) => {
+      console.log('Processing response from getPort...' + data);
+      this.gc.game.serverPort = data;
+      this.gc.game.serverAddress = environment.SOCKET_ENDPOINT;
+    });
+
     // Initialse potential players
     this.gc.game.addPotentialPlayer("Brian", "N");
     this.gc.game.addPotentialPlayer("Kate", "S");
@@ -156,6 +175,36 @@ export class AppComponent implements OnInit, OnDestroy  {
 
   doCutDeck() : boolean {
     return ( (this.gc.game.state.currentPhase==GamePhase.cuttingForTurnup) && (this.gc.game.state.currentActivePlayer == this.gc.game.whoAmI ) );
+  }
+
+  getPort(): Observable<string> {
+     return this.http.get<string>(this.serverUrl+'/port')
+        .pipe(
+          retry(5),
+          tap(_ => console.log('returning port ...')),
+          catchError(this.handleError)
+        );
+  }
+
+  getPortText() : Observable<string> {
+    return this.http.get<string>(this.serverUrl + '/port', httpOptions );
+  }
+  
+
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.log(`'An error occurred:' ${error.error.message}`);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.log(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError( 'Something bad happened; please try again later.');
   }
 
 }

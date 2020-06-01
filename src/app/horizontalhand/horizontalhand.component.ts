@@ -51,7 +51,7 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     let showCards = (this.showCards.toLowerCase() == "true");
-    if (environment.DEBUG_NO_SERVER) {
+    if (environment.DEBUG_SHOWALLHANDS==true) {
       showCards = true;
     }
 

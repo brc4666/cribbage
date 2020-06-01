@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from "@angular/flex-layout";
 //import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
-//import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule }    from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { CardtableComponent } from './cardtable/cardtable.component';
@@ -33,7 +33,7 @@ import { GameoverComponent } from './gameover/gameover.component';
     GameoverComponent
   ],
   imports: [
-    // HttpClientModule,
+    HttpClientModule,
     // FormsModule,
     BrowserModule,
     FlexLayoutModule

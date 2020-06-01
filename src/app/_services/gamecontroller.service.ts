@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import * as io from 'socket.io-client';
-import { environment } from '../../environments/environment';
 
 import { GameData } from '../_classes/gamedata';
 import { ServerGameData, ServerPlayerInfo, ServerGameStatus, ServerPeggingData, ServerBoxData, ServerGameScores } from '../_classes/serverdata';
@@ -41,7 +40,7 @@ export class GameControllerService {
   // https://socket.io/docs/emit-cheatsheet/
   setupSocketConnection(connectionId: string): boolean {
     this.connectionId = connectionId;
-    this.socket = io(environment.SOCKET_ENDPOINT, {
+    this.socket = io(this.game.serverAddress , {  // + ":"+ this.game.serverPort
                   'forceNew':true, 
                   query: { token: connectionId }
                   });
