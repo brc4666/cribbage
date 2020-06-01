@@ -5,7 +5,7 @@
             <section class="playersname"> 
                 {{title}}
             </section>
-            <section class="playermessage"> 
+            <section *ngIf="screenPosition=='bottom'" class="playermessage"> 
                 {{actionMessage}}
             </section>   
         </div>
@@ -13,11 +13,18 @@
         <div class="handcontainer" *ngIf="playersIndex>=0">
             <section class="playerscards"  *ngIf="this.gc.game.state.activePlayers[playersIndex].hand"> 
                 <section class="cardwrapper" *ngFor="let card of gc.game.state.activePlayers[playersIndex].hand">
-                    <span [class.playable]="isCardPlayable(card)" [class.hidden]="isCardHidden(card)">
-                        <img 
-                        (click)="onSelectCard(card)" 
-                        src='{{assetsPath}}{{card.imageFile}}' alt=card.card>
-                    </span>
+                    <div *ngIf="this.showCards=='true'" >
+                        <span [class.playable]="isCardPlayable(card)" [class.hidden]="isCardHidden(card)">
+                            <img 
+                            (click)="onSelectCard(card)" 
+                            src='{{assetsPath}}{{card.imageFile}}' alt=card.card>
+                        </span>
+                    </div>
+                    <div *ngIf="this.showCards=='false'" >
+                        <span [class.hidden]="isCardHidden(card)">
+                            <img src='{{assetsPath}}back.png' alt=card.card>
+                        </span>
+                    </div>                    
                 </section>
             </section>
 

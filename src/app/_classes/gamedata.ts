@@ -695,6 +695,36 @@ export class GameData{
         }
     }
 
+    reverse_addCardtoDiscardPile(playersName: string, cardName: string, screenPosition: string) {
+        // find the index of the player in the list of active players
+        let playerIndex = this.getActivePlayerIndex( playersName );
+        // find the card in the discard pile and remove it
+        let discardIndex = -1;
+        for (let i=0; i< this.state.activePlayers[playerIndex].discards.length; i++) {
+            if (this.state.activePlayers[playerIndex].discards[i] == cardName) {
+                discardIndex = i;
+                break;              
+            }
+        }
+        if (discardIndex >-1) {
+            // add the card to their discard pile
+            this.state.activePlayers[playerIndex].discards.splice(discardIndex, 1);
+        }
+
+        // reset the flag in the game store object that this card has been un-played by the player
+        let cardIndex =-1;
+        for (let i=0; i< this.state.activePlayers[playerIndex].hand.length; i++) {
+            if (this.state.activePlayers[playerIndex].hand[i].card == cardName)
+            {
+                cardIndex = i;
+                break;
+            }
+        }
+        if (cardIndex>-1) {
+            this.state.activePlayers[playerIndex].hand[cardIndex].cardUnPlayed(screenPosition);
+        }
+    }
+
     clearAllDiscardPiles() {
         for (let i = 0; i < this.state.activePlayers.length; i++) {
         //   TO DO this.state.activePlayers[i].discards = [];

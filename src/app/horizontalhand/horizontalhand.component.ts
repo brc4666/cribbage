@@ -54,7 +54,6 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
     if (environment.DEBUG_SHOWALLHANDS==true) {
       showCards = true;
     }
-
     this.showButton = (this.screenPosition=="bottom");
     this.UpdateLocals();   
   }
@@ -80,8 +79,13 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
   }
 
   isCardPlayable(card: CardinHand): boolean {
-    return  ( ( (this.gc.game.state.currentPhase==GamePhase.discardingToBox) || (this.gc.game.state.currentPhase==GamePhase.pegging) ) &&
-              ( (card.isInVisible==false) && ( card.played==false) && (this.playersName===this.gc.game.state.currentActivePlayer) ) );
+    var b: boolean;
+    b = ( ( (this.gc.game.state.currentPhase==GamePhase.discardingToBox) || (this.gc.game.state.currentPhase==GamePhase.pegging) ) &&
+              ( (card.isInVisible==false) 
+                 && ( card.played==false)
+                 && (this.playersName===this.gc.game.state.currentActivePlayer) 
+                 && (this.screenPosition === 'bottom') ) );
+    return b;
   }
 
   isCardHidden(card: CardinHand): boolean {
@@ -108,6 +112,9 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
     if ( (this.gc.game.state.currentPhase==GamePhase.cuttingForTurnup) ||
        (this.gc.game.state.currentPhase==GamePhase.showingHands) ||
         ((card.isInVisible==true) || (card.played===true)) ) {
+      return;
+    }
+    if (! this.isCardPlayable(card) ) {
       return;
     }
 
@@ -230,8 +237,10 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
   updateButtonVisibility( show: boolean, caption: string) {
     if (environment.DEBUG_NO_SERVER==true) {
       this.showButton = true;
-    } else {
+    } else if (this.screenPosition==='bottom') {
       this.showButton = show;
+    } else {
+      this.showButton = false;
     }
     this.buttonText = caption;
   }

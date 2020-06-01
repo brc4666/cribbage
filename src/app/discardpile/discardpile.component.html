@@ -2,11 +2,12 @@
     <div class="discardscontainer">
         <section class="discardedcards">   
             <section class="cardwrapper" *ngFor="let discard of cardsinDiscardPile">  
-                <span [class.hidden]="discard.isVisible===false">
-                <img [ngStyle]="{ left: discard.offset }" src='{{discard.imageFile}}' alt=discard.card>
+                <span [class.hidden]="discard.isVisible===false" [class.playable]="isCardPlayable(discard)">
+                <img [ngStyle]="{ left: discard.offset }" (click)="onSelectCard(discard)" src='{{discard.imageFile}}' alt=discard.card>
                 </span>
             </section>
     
         </section>
     </div>
 </div>
+

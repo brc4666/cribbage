@@ -12,8 +12,8 @@
 
 export const environment = {
   production: false,
-  HTTPSERVER_URL: 'https://cribbageserver.herokuapp.com',
-  SOCKET_ENDPOINT: 'https://cribbageserver.herokuapp.com',
+  HTTPSERVER_URL: 'http://localhost:8081',
+  SOCKET_ENDPOINT: 'http://localhost:8081',
   ASSETPATH: './assets/cards/',
   DEBUG: true,
   DEBUG_SHOWALLHANDS: true,

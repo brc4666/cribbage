@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 import { GameControllerService } from '../_services/gamecontroller.service';
-import { MessageType, MessageHeader } from '../_classes/common';
+import { MessageType, MessageHeader, GamePhase } from '../_classes/common';
 
 import { DiscardedCard } from '../_classes/cardinhand';
 import { GameData } from '../_classes/gamedata';
@@ -54,6 +54,28 @@ export class DiscardpileComponent implements OnInit, OnDestroy {
     this.cardsinDiscardPile.push( new DiscardedCard(1, 'ad', false)); 
     this.refreshDiscardPile();
   } 
+
+  isCardPlayable(card: DiscardedCard): boolean {
+    return  ( (this.gc.game.state.currentPhase==GamePhase.discardingToBox)  
+              && (card.isVisible==true) 
+              && (this.playersName===this.gc.game.state.currentActivePlayer) 
+              && (this.screenPosition == 'bottom') );
+  }
+
+  onSelectCard(card: DiscardedCard) {
+    if ( (  this.gc.game.state.currentPhase!==GamePhase.discardingToBox) ||
+         ( !this.isCardPlayable(card) ) ) {
+           return;
+    }
+
+    // Add discard back into hand and remove from pile
+    this.selectedCard = card.card; 
+    // Update the current player's list of discarded cards
+    this.gc.game.reverse_addCardtoDiscardPile(this.playersName, card.card, this.screenPosition);
+    // Now send a message to the discard pile so that is can display the updated discarded card
+    this.refreshDiscardPile();   
+    this.gc.refreshDiscards( this.playersName );
+  }
 
   onInternalMessage(msg: any[]) {
     if (!this.isViewEnabled) return;
