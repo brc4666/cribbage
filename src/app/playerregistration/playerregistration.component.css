@@ -72,6 +72,11 @@ body.players-modal-open {
     overflow: auto;
   }
 
+  h1 {
+      margin-left: 10px;
+  }
+
+
      .rowcontainer {
     	display: flex;
     	box-sizing: border-box;

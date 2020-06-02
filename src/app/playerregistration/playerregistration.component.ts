@@ -83,16 +83,16 @@ export class PlayerRegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
+  isStartButtonSelectable() : boolean {
+    return ( (2 == this.numConnections) || (4 == this.numConnections) );
+  }
+
   onStartGameButton() {
-    if (this.closeButtonActive) {
+    if (this.isStartButtonSelectable()) {
       this.gc.game.setwhoIAm( this.gc.game.config.potentialPlayers[this.selectedPlayerIndex].name );
       this.element.style.display = 'none';
       this.gc.startGame();
     }
-  }
-
-  onCancel() {
-
   }
 
   onClickConnect(playerIndex: number) {

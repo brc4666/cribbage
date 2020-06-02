@@ -55,7 +55,10 @@
                         <!-- <span [class.selectable]="isSelectable(3)"> -->
                     </div>
                 </div>
-                <button  class="connectbutton selectable" style="margin:10px;" (click)="onStartGameButton()">{{this.closeButtonText}}</button>
+                <button class="connectbutton" 
+                        [class.selectable]="isStartButtonSelectable()"
+                        [class.notselectable]="!isStartButtonSelectable()"
+                        style="margin:10px;" (click)="onStartGameButton()">{{this.closeButtonText}}</button>
         </div>
     </div>
 </div>
