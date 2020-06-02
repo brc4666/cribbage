@@ -136,15 +136,17 @@ export class DiscardpileComponent implements OnInit, OnDestroy {
       }
       */
     } else {
-        // TODO - Stop empyting the discard pile to prevent flicker
-
-            // Clear the local discard array to remove any dummy cards etc.
-           // this.cardsinDiscardPile.splice(0, this.cardsinDiscardPile.length);
-
-        // add all the cards in the global controller to local array
+        // replace all the cards in the local array with those from the global array
         for (let i=0; i < discards.length; i++) {
           this.cardsinDiscardPile.splice(i, 1 , new DiscardedCard(i+1, discards[i], true) );
-          //this.cardsinDiscardPile.push( new DiscardedCard(i+1, discards[i], true) );
+        }
+
+        // As we have above replaced the cards from the global discard pile into the local copy,
+        // we need to check if we need to delete any form the local copy
+        // i.e. if we have removed a card from the discard pile, 
+        // the local array will be longer than the global array ... which is not correct
+        if (discards.length < this.cardsinDiscardPile.length) {
+          this.cardsinDiscardPile.splice(discards.length, this.cardsinDiscardPile.length - discards.length );
         }
 
         if (1) {
