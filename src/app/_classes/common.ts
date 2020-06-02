@@ -44,7 +44,8 @@ export const enum MessageType {
     playerdiscarded = 'playerdiscarded',    // [ name, cardname ] a player discarded in the pegging phase
     playercannotgo = 'playercannotgo',      // [ name ] player cannot go in the pegging phase
     turncomplete = 'turncomplete',          // [ player name ] the player has completed thier turn
-    viewhandcomplete = 'viewhandcomplete'   // [ player name, score ] a player has viewed his hand and taken the points
+    viewhandcomplete = 'viewhandcomplete',  // [ player name, score ] a player has viewed his hand and taken the points
+    gamecomplete = 'gamecomplete'           // [ ] game has been completed
 }
 
  export const enum MessagesFromServer {
@@ -61,7 +62,7 @@ export const enum MessageType {
     playerpeggingcomplete = 'playerpeggingcomplete',    // [ ServerGameStatus, ServerPeggingData, ServerGameScores ] player's turn in pgging phase complete
     startshowhandsequence = 'startshowhandsequence',    // [ ServerGameStatus, ServerPeggingData, ServerGameScores ] end of the pegging phase: start of the show hands phase
     nextshowhand = 'nextshowhand',                      // [ ServerGameScores, nextPlayer, bScoreBox ] Next player to 'take'
-    gameover = 'gameover'                               //  [ ServerGameStatus, ServerGameScores ] Someone has won !!
+    gameover = 'gameover'                               // [ ServerGameStatus, ServerGameScores ] Someone has won !!
 }
 
 export const enum CompassPoints {

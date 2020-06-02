@@ -48,6 +48,7 @@ export class GameScores {
     initPlayersScore( scoreIndex :number, seats :string , displayname :string ) {
         this.playerScores[scoreIndex].seats = seats;
         this.playerScores[scoreIndex].displayname = displayname;
+        this.playerScores[scoreIndex].score = 0;
     }
 
     applyServerScores( serverScores: ServerGameScores ){
@@ -346,7 +347,7 @@ class GameStatus {
 export class GameData{
     // Local (i.e. unshared data)
     serverAddress: string = "";
-    serverPort: string = "";
+    // serverPort: string = "";
     whoAmI: string = "";                
     scoreBox: boolean = false;
 

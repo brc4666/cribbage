@@ -6,22 +6,6 @@ import { GameData } from '../_classes/gamedata';
 import { ServerGameData, ServerPlayerInfo, ServerGameStatus, ServerPeggingData, ServerBoxData, ServerGameScores } from '../_classes/serverdata';
 import { MessagesToServer, MessagesFromServer, MessageType, MessageHeader, GamePhase } from '../_classes/common';
 
-/* MESSAGING GLOSSARY
-----------------------
-
-SOCKET MESSAGES
-  Inbound
-      connect         [name]                this player connected to server
-      disconnect      []                    unknown
-      playerjoined    [name]                a player joined on another connection
-      playerleft      [name]                a player on another connection left
-      gameready     []                   
-      gameinitialsing []                    someone has invoked the 'start game' process ... and the server is preparing data
-  Sent
-      startgame       [ServerConfigData]    this player clicked start game button
-*/
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -238,6 +222,10 @@ export class GameControllerService {
 
   sendPlayerShowHandComplete(score : number) {
     this.socket.emit(MessagesToServer.viewhandcomplete, this.game.state.currentActivePlayer, score  );
+  }
+
+  sendGameComplete() {
+    this.socket.emit(MessagesToServer.gamecomplete);
   }
 
 
