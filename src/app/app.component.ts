@@ -56,12 +56,14 @@ export class AppComponent implements OnInit, OnDestroy  {
   }
 
   ngOnInit() {
-
+    this.gc.game.serverAddress = environment.SOCKET_ENDPOINT;
+    /*
     this.getPort().subscribe( (data:string) => {
       console.log('Processing response from getPort...' + data);
       this.gc.game.serverPort = data;
       this.gc.game.serverAddress = environment.SOCKET_ENDPOINT;
     });
+    */
 
     // Initialse potential players
     this.gc.game.addPotentialPlayer("Brian", "N");
@@ -93,16 +95,17 @@ export class AppComponent implements OnInit, OnDestroy  {
     d = d;
 */
  
-    hand.push ( new CardinHand("8s", true) );
+    hand.push ( new CardinHand("8h", true) );
+    hand.push ( new CardinHand("8d", true) );
+    hand.push ( new CardinHand("7s", true) );
     hand.push ( new CardinHand("7c", true) );
-    hand.push ( new CardinHand("9d", true) );
-    hand.push ( new CardinHand("9h", true) );
-       turnup = new CardinHand("3c", true);
+       turnup = new CardinHand("9h", true);
     scorer.calcScore( hand, turnup); // should be 4
     console.log('Debug score was: ' + scorer.score);
     for (let d = 0; d < scorer.scoreDetailsLength; d++) {
       console.log ('   ' + scorer.scoreDetails(d) );
     }
+
    /*
     hand.push ( new CardinHand("qs", true) );
     hand.push ( new CardinHand("js", true) );
@@ -111,7 +114,7 @@ export class AppComponent implements OnInit, OnDestroy  {
     turnup = new CardinHand("5s", true);
     scorer.calcScore( hand, turnup); // should be 13 +flush = 18
     
-    
+  
     hand.push ( new CardinHand("3s", true) );
     hand.push ( new CardinHand("2s", true) );
     hand.push ( new CardinHand("4s", true) );

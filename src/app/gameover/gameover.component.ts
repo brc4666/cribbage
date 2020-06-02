@@ -10,7 +10,7 @@ import { MessageType, MessageHeader, GamePhase } from '../_classes/common';
 @Component({
   selector: 'app-gameover',
   templateUrl: './gameover.component.html',
-  styleUrls: ['./gameover.component.css']
+  styleUrls: ['./gameover.component.css', '../commonstyles.css']
 })
 export class GameoverComponent implements OnInit, OnDestroy {
 
@@ -42,6 +42,12 @@ export class GameoverComponent implements OnInit, OnDestroy {
     this.comment = "Wow ! That was a close one !";  
   }
 
+  onButtonClick() {
+    // The player has finished viewing the game over dialog, so 
+    // send messgae to server to start new game
+    this.gc.sendGameComplete();
+  }
+
   onInternalMessage(msg: any[]) {
     if (undefined==msg)
       return;
@@ -64,7 +70,7 @@ export class GameoverComponent implements OnInit, OnDestroy {
           } else {
             this.title += this.gc.game.scoring.playerScores[1].displayname;
           }
-          this.title += " who win by " + this.wonBy + "points.";
+          this.title += " who win by " + this.wonBy + " points.";
 
           if ( (this.gc.game.state.numActivePlayers>2 ) && ( "M&Ms" == this.gc.game.scoring.playerScores[1].displayname) ) {
             this.comment = "Oh ! Come on Matthew - you have to do better than that !";

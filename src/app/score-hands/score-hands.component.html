@@ -40,14 +40,18 @@
             </section>
             -->
 
-            <section class="buttoncontainer" [class.hidden]="showButton===false">
+            <section class="buttoncontainer">
                 <div >
-                <span id="modalbutton" class="selectable" (click)="onButtonClick()">{{buttonText}}</span>
-                </div>
-            </section>
+                <!--  <span id="modalbutton" class="selectable" (click)="onButtonClick()">{{buttonText}}</span> -->
+                
+                    <span id="modalbutton"
+                        [class.selectable]="isButtonSelectable()"
+                        [class.notselectable]="!isButtonSelectable()"
+                        (click)="onButtonClick()">
+                        {{buttonText}}
+                    </span>
 
-            <section class="playermessage" [class.hidden]="showButton===true">
-                {{waitmessage}}
+                </div>
             </section>
         </div>
         

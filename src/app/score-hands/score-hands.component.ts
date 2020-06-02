@@ -27,8 +27,6 @@ export class ScoreHandsComponent implements OnInit, OnDestroy {
   playersIndex: number = -1;        // index of this player in gameData.activePlayers[]
   title: string = "";               // for display on view    
   buttonText = "";
-  showButton: boolean = false;      // whether to show/hide the action button fo this view 
-  waitmessage = "";                 // message to display if not active player
   cards: CardinHand[] = [];
   turnup: CardinHand;
   scorer: ScoreHand = new ScoreHand;
@@ -65,20 +63,16 @@ export class ScoreHandsComponent implements OnInit, OnDestroy {
     }
   }
 
-  onButtonClick() {
-    // The player has finished viewing his hand, so 
-    // send messgae to server to update score and cycle to next player (if there is one)
-    // this.gc.game.state.shownHandsCount
-    this.gc.sendPlayerShowHandComplete(this.scorer.score);
+  isButtonSelectable() : boolean {
+    return ( this.playersName == this.gc.game.whoAmI);
   }
 
-  onRescoreClick() {
-    // Score the (correct) hand
-    if (this.gc.game.scoreBox == true) {
-      // Get the box
-      this.scorer.calcScore( this.gc.game.theBox.cards, this.turnup, true ) ;
-    } else {
-      this.scorer.calcScore( this.gc.game.state.activePlayers[this.playersIndex].hand, this.turnup ) ;
+  onButtonClick() {
+    if (this.isButtonSelectable()) {
+      // The player has finished viewing his hand, so 
+      // send messgae to server to update score and cycle to next player (if there is one)
+      // this.gc.game.state.shownHandsCount
+      this.gc.sendPlayerShowHandComplete(this.scorer.score);
     }
   }
 
@@ -129,12 +123,9 @@ export class ScoreHandsComponent implements OnInit, OnDestroy {
     // Update view elements: title, message and button text
     if (this.playersName == this.gc.game.whoAmI) {
       this.buttonText = "Take Score";
-      this.showButton = true;
     } else {
-      this.showButton = false;
-      this.waitmessage = "Waiting for " + this.gc.game.state.currentActivePlayer + " to take ...";
+      this.buttonText = "Waiting for " + this.gc.game.state.currentActivePlayer + " to take ...";
     }
   }
-
 
 }

@@ -1,0 +1,32 @@
+#modalbutton {
+    vertical-align: middle;
+    color:white ;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: rgb( 96,163, 188);
+    padding: 15px;
+    border-radius: 50px;
+    display: inline-block;
+    border: none;
+    transition: all 0.4s ease 0s;
+ }
+
+ #modalbutton.notselectable {
+    background: white;
+    color: black;
+    font-style: italic;
+    cursor: wait;
+ }
+
+ #modalbutton.selectable {
+   cursor: pointer;
+ }
+
+ #modalbutton.selectable:hover {
+    text-shadow: 0px 0px 8px rgba(255, 255, 255, 1);
+    box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    transition: all 0.4s ease 0s;
+ }
