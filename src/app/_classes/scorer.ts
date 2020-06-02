@@ -8,12 +8,14 @@ export class ScoreHand {
     sortedHand: CardinHand[];
     score: number;
     details: string[];
+    threeDenom : string;        // the card denomination if three of a kind is found (to be excluded from pairs calculation)
 
     constructor() {
         this.originalHand  = [];
         this.sortedHand = [];
         this.score = 0;
         this.details = [];
+        this.threeDenom = "";
     }
 
     get scoreDetailsLength() : number { return this.details.length; } 
@@ -57,8 +59,9 @@ export class ScoreHand {
             this.score += 12;
         } else {
             var foundCard : string = "";
-            // this.score += this.ThreeofaKind(foundCard);
-            this.score += 2 * this.Pairs(foundCard);
+            this.threeDenom = "";
+            this.score += this.ThreeofaKind();
+            this.score += 2 * this.Pairs();
         }
         this.score += this.Runs();
         this.score += this.Flushes( turnup, istheBox );
@@ -131,15 +134,16 @@ export class ScoreHand {
         return count;
     }
 
-    private Pairs(foundCard : string) : number {
+    private Pairs() : number {
         var i: number;
         var j: number;
         var count: number = 0;
 
         for (i=0; i< this.sortedHand.length-1; i++) {
-            if ( this.sortedHand[i].card.substr(0, 1) != foundCard) {
+            if ( this.sortedHand[i].card.substr(0, 1) != this.threeDenom) {
                 for (j = i+1; j < this.sortedHand.length; j++) {
-                    if ( this.sortedHand[i].card.substr(0, 1) == this.sortedHand[j].card.substr(0, 1) ) {
+                    if ( this.sortedHand[i].cardDenomination == this.sortedHand[j].cardDenomination ) {
+                        // It's two matching cards that are not 2 parts of three of a kind
                         count++;
                     }
                 }
@@ -153,14 +157,14 @@ export class ScoreHand {
         return count;
     }
 
-    private ThreeofaKind(foundCard : string) : number {
+    private ThreeofaKind() : number {
         var i: number;
         var j: number;
-        var found3 : boolean = false;
-        var count: number = 0;
+        var count: number;
 
         for (i=0; i < 3; i++) {
-            for (j = i; j < i + 3; j++) {
+            count = 1;      // because the 'i' card we are comparing against counts as one of the matches
+            for (j = i+1; j < i + 3; j++) {
                 if ( this.sortedHand[i].card.substr(0, 1) == this.sortedHand[j].card.substr(0, 1) ) {
                     count++;
                 } else {
@@ -168,8 +172,7 @@ export class ScoreHand {
                 }
             }
             if (count == 3) {
-                count = 6;
-                foundCard = this.sortedHand[i].card.substr(0, 1);
+                this.threeDenom = this.sortedHand[i].card.substr(0, 1);
                 break;
             } else {
                 count = 0;
@@ -180,17 +183,18 @@ export class ScoreHand {
             this.details.push('+6 for three of a kind');
         }
 
-        return count;
+        return count * 2;
     }    
 
     private FourofaKind() : boolean {
         var i: number;
         var j: number;
-        var count: number = 0;
+        var count: number;
 
         for (i=0; i< 2; i++) {
-            for (j = i; j < i + 4; j++) {
-                if ( this.sortedHand[i].card.substr(0, 1) == this.sortedHand[j].card.substr(0, 1) ) {
+            count = 1;      // because the 'i' card we are comparing against counts as one of the matches
+            for (j = i+1; j < i + 4; j++) {
+                if ( this.sortedHand[i].cardDenomination == this.sortedHand[j].cardDenomination ) {
                     count++;
                 } else {
                     break;
@@ -291,6 +295,12 @@ export class ScoreHand {
             }
         }
 
+        if (dummy.length<3) {
+            // If we only have 2 cards now we have removed all duplicates ...
+            // we cannot have any runs !
+            return runsscore;
+        }
+
         // Now we can more easily see how many runs we have in the dummy hand (excluding the duplicates)
         // First check if all the cards in the dummy hand are contiguous
         runsscore = this.runsHelper(dummy, dummy.length, duplicates);
@@ -319,7 +329,7 @@ export class ScoreHand {
                 // if any of those are duplicated, we multiply the score by 2
                 for (let ii = i; ii<i+runlength; ii++) {
                     if ( duplicates[ this.demonIndex(dummy[ii]) ] > 1 ) {
-                        runscount++;
+                        runscount *= duplicates[ this.demonIndex(dummy[ii]) ];
                         runscore = (runscore * duplicates[ this.demonIndex(dummy[ii]) ] );
                     }
                     
