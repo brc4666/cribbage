@@ -12,7 +12,7 @@ import { ScoreHand } from '../_classes/scorer';
 @Component({
   selector: 'app-score-hands',
   templateUrl: './score-hands.component.html',
-  styleUrls: ['./score-hands.component.css']
+  styleUrls: ['./score-hands.component.css', '../commonstyles.css']
 })
 export class ScoreHandsComponent implements OnInit, OnDestroy {
 

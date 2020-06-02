@@ -5,8 +5,8 @@ scorehands-modal {
 
 .scorehands-modal {
     /* modal container fixed across whole screen */
-    width: 500px;         /* 50%; */
-    height: 100%;
+    width: 550px;         /* 50%; */
+    height: 90%;
     position: absolute;
     top:0;
     bottom: 0;
@@ -22,7 +22,7 @@ scorehands-modal {
     
 .scorehands-modal-body {
     padding: 20px;
-    background: black;
+    background: rgb(160, 160, 160);
     /* margin exposes part of the modal background */
     margin: 40px;
 }
@@ -136,22 +136,10 @@ body.scorehands-modal-open {
     box-sizing: border-box;
   }
 
-  .actionbutton {
-    align-content: flex-end;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 2px 2px;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-  .playermessage{
+ .playermessage{
     display: flex;
     font: Arial;
-    font-size:10pt;
+    font-size:12pt;
     color: red;
     font-style: italic;
     justify-content: flex-end;
@@ -161,17 +149,35 @@ body.scorehands-modal-open {
     border-radius: 25px; */
     padding: 0px;
     box-sizing: border-box;
-    
     min-width: 60%; 
   }
 
   .scorebreakdownul {
     list-style-type: circle;
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
-    align-content: left;
-    text-align: left;
+    font: Helvetica;
+    font-size:12pt;
+  }
+
+  .scorebreakdownli {
     font: Helvetica;
     font-size:10pt;
+    font-weight: bold;
   }
+
+  #summarytable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px;
+    font-size: 12px;
+  }
+  
+  #summarytable tr {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+  }
+
