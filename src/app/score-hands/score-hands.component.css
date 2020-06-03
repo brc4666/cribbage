@@ -22,7 +22,7 @@ scorehands-modal {
     
 .scorehands-modal-body {
     padding: 20px;
-    background: rgb(160, 160, 160);
+    background: black;
     /* margin exposes part of the modal background */
     margin: 40px;
 }
@@ -53,7 +53,7 @@ body.scorehands-modal-open {
     min-width: 100%;
     padding: 2px; 
     background: #fff;
-    border: 2px solid rgb(150, 100, 100);
+    border: 2px solid black;
     border-radius: 0px;
     overflow: auto;
   }
