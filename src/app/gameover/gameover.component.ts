@@ -24,7 +24,7 @@ export class GameoverComponent implements OnInit, OnDestroy {
   wonBy: number = 0;
   comment : string = "";
 
-  constructor(private el: ElementRef,public gc: GameControllerService) { 
+  constructor(private el: ElementRef,  public gc: GameControllerService) { 
     this.element = el.nativeElement;
     // subscribe to get messages
     this.subscription = this.gc.getMessage()
@@ -38,8 +38,33 @@ export class GameoverComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    let winnersIndex = 0;
+    this.wonBy = 121 - this.gc.game.scoring.playerScores[1].score;
+    if (this.gc.game.scoring.playerScores[1].score > this.gc.game.scoring.playerScores[0].score) {
+      winnersIndex = 1;
+      this.wonBy = 121 - this.gc.game.scoring.playerScores[0].score;
+    }
+
     this.title = "Congratulations to ";
-    this.comment = "Wow ! That was a close one !";  
+    if (this.gc.game.state.numActivePlayers>2 ) {
+      this.title += "the " + this.gc.game.scoring.playerScores[1].displayname;
+    } else {
+      this.title += this.gc.game.scoring.playerScores[1].displayname;
+    }
+    this.title += " who won by " + this.wonBy + " points.";
+
+    if ( (this.gc.game.state.numActivePlayers>2 ) && ( "M&Ms" == this.gc.game.scoring.playerScores[1].displayname) ) {
+      this.comment = "Oh ! Come on Matthew - you have to do better than that !";
+    } else if (this.wonBy <= 5) {
+      this.comment = "Wow ! That was a close one !";    
+    } else if (this.wonBy <= 10) {
+      this.comment = "Close ... but not close enough !"; 
+    } else if (this.wonBy <= 20) {
+      this.comment = "A comfortable victory !"; 
+    } else if (this.wonBy > 20) {
+      this.comment = "Ouch ! That was a bit of a drubbing, eh?"; 
+    }      
+  
   }
 
   onButtonClick() {
@@ -49,44 +74,7 @@ export class GameoverComponent implements OnInit, OnDestroy {
   }
 
   onInternalMessage(msg: any[]) {
-    if (undefined==msg)
-      return;
 
-    let msgheader = msg[1];
-    switch ( msgheader ) {
-      case MessageHeader.refreshgame: 
-        if (this.gc.game.state.currentPhase == GamePhase.gameover) {
-
-          let winnersIndex = 0;
-          this.wonBy = 121 - this.gc.game.scoring.playerScores[1].score;
-          if (this.gc.game.scoring.playerScores[1].score > this.gc.game.scoring.playerScores[0].score) {
-            winnersIndex = 1;
-            this.wonBy = 121 - this.gc.game.scoring.playerScores[0].score;
-          }
-
-          this.title = "Congratulations to ";
-          if (this.gc.game.state.numActivePlayers>2 ) {
-            this.title += "the " + this.gc.game.scoring.playerScores[1].displayname;
-          } else {
-            this.title += this.gc.game.scoring.playerScores[1].displayname;
-          }
-          this.title += " who win by " + this.wonBy + " points.";
-
-          if ( (this.gc.game.state.numActivePlayers>2 ) && ( "M&Ms" == this.gc.game.scoring.playerScores[1].displayname) ) {
-            this.comment = "Oh ! Come on Matthew - you have to do better than that !";
-          } else if (this.wonBy <= 5) {
-            this.comment = "Wow ! That was a close one !";    
-          } else if (this.wonBy <= 10) {
-            this.comment = "Close ... but not close enough !"; 
-          } else if (this.wonBy <= 20) {
-            this.comment = "A comfortable victory !"; 
-          } else if (this.wonBy > 20) {
-            this.comment = "Ouch ! That was a bit of a drubbing, eh?"; 
-          }      
-
-        }
-        break;
-    }
   }
 
 }

@@ -54,47 +54,66 @@ h1 {
     margin-left: 10px;
 }
 
-.gameovercontainer {
-    box-sizing: border-box;
-    height: 100%;  
-    min-width: 90%;
-    padding: 2px; 
-    background: #fff;
-    border: 2px solid rgb(150, 100, 100);
-    border-radius: 0px;
-    overflow: auto;
-    margin-left: 10px;
-  }
+    .gameovercontainer {
+        box-sizing: border-box;
+        height: 100%;  
+        min-width: 90%;
+        padding: 2px; 
+        background: #fff;
+        border: 2px solid rgb(150, 100, 100);
+        border-radius: 0px;
+        overflow: auto;
+        margin-left: 10px;
+    }
 
-.gameovercontainer.message{
-    display: inline-flex;
-    font: Helvetica;
-    font-size:14pt;
-    font-weight: bold;
-    text-align: left;
-    /* border: 1px solid cyan;
-    border-radius: 25px; */
+    .headingscontainer {
+        display: flex;
+            border: 1px solid blue;
+            border-radius: 5px; 
+        box-sizing: border-box;
+        height: 50%;  
+        min-width: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        align-content: right;
+        justify-content: center;
+        align-items: center;
+    }
 
-  }
+    .message{
+        font: Helvetica;
+        font-size:16pt;
+        font-weight: bold;
+        text-align: center;
+        padding: 15px;
+        justify-content: center;
+            /*
+            border: 1px solid cyan;
+            border-radius: 5px;
+            */
+    }
 
-.gameovercontainer.comment{
-    display: flex;
-    font: Arial;
-    font-size:12pt;
-    color: red;
-    font-weight: bold;
-    font-style: italic;
+    .comment{
+        font: Arial;
+        font-size:12pt;
+        padding: 15px;
+        color: red;
+        font-weight: bold;
+        font-style: italic;
+        text-align: center;
+        justify-content: center;
+            /*
+            border: 1px solid cyan;
+            border-radius: 5px;
+            */
+    }
 
-  }
-
-  .buttoncontainer {
-    display: flex;
-    /* border: 1px solid red;
-    border-radius: 15px; */
-    align-content: right;
-    justify-content: center;
-    align-items: center;
-    padding: 1px;
-    box-sizing: border-box;
-  }
+    .buttoncontainer {
+        display: flex;
+        /* border: 1px solid red;
+        border-radius: 15px; */
+        align-content: right;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+    }
 
