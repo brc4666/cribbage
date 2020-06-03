@@ -50,7 +50,6 @@ export class AppComponent implements OnInit, OnDestroy  {
       
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    alert ('In App OnDestroy() ...');
     this.gc.disconnectMe( this.gc.game.whoAmI );
     this.subscription.unsubscribe();
   }
