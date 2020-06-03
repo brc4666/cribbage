@@ -40,7 +40,7 @@ export class GameControllerService {
 
     // onDisconnect: received when the server disconnects from this client 
     this.socket.on('disconnect', (data: string) => {
-      alert('in socket disconnct');
+      alert('The server disconnected !');
       // TO DO - what ?????
       console.log(data);
       this.sendMessage( MessageType.controller, MessageHeader.disconnection , data );
