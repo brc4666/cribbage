@@ -27,8 +27,8 @@ export const enum MessageType {
     playerjoined,           // anther player joined [name]
     playerleft,             // a player on another connection left [name]
     // Cards messages ... 
-    // refreshcards = 130,         // cards in hands need refreshing (includes discard piles) [ name ]
-    refreshdiscards = 130,            // cards in discard pile(s) need refreshing [ name ]
+    // refreshcards = 130,      // cards in hands need refreshing (includes discard piles) [ name ]
+    refreshdiscards = 130,      // cards in discard pile(s) need refreshing [ name ]
     cardDiscarded,              // a player discarded a card [name, screenPosition, card, boolean] 
     refreshplayerscards,        // TODO - is used ? a remote player's hand has been updated [ ServerPlayerInfo ]
     refreshturnup               // refresh turnup component
