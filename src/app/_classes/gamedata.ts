@@ -224,6 +224,7 @@ class GameStatus {
         }
     };
     get cardsToCut() : number { return this.data.cardsToCut; }
+    set cardsToCut( num : number ) {this.data.cardsToCut = num; }
     get publicMessage() : string { return this.data.publicmessage; }
     set publicMessage( msg : string ) {  this.data.publicmessage = msg; }
 
@@ -236,18 +237,6 @@ class GameStatus {
             this.applyServerPlayersCards( serverData.activePlayers[i], i );
         }
     }   
-
-    // TO DO - Get rid of this
-    /*
-    updatePlayerInfo( newServerInfo: ServerPlayerInfo ) {
-        for (let i=0; i < this.activePlayers.length; i++) {
-            if (this.activePlayers[i].name == newServerInfo.name) {
-                this.applyServerPlayersCards(newServerInfo, i);
-                break;
-            }
-        }
-    }
-    */
 
     applyServerPlayerData( serverData :ServerGameStatus ) {
         this.data.numActivePlayers = serverData.numActivePlayers;
@@ -473,10 +462,8 @@ export class GameData{
         this.state.currentDealer = "Brian";
         // determine which player is active
         this.state.currentActivePlayer = "Brian";
+        this.state.cardsToCut = 52 - 12;
 
-        this.config.isSetup = true;
-
-        this.state.currentPhase = GamePhase.pegging;
     }
 
     setwhoIAm(name:string) {

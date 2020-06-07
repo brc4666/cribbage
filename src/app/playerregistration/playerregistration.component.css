@@ -10,7 +10,7 @@ players-modal {
 .players-modal {
     /* modal container fixed across whole screen */
     width: 550px;         /* 50%; */
-    height: 90%;
+    height: 95%;
     position: absolute;
     top:0;
     bottom: 0;
@@ -74,6 +74,8 @@ body.players-modal-open {
 
   h1 {
       margin-left: 10px;
+      padding: 5px;
+      margin: 5px;
   }
 
 
@@ -136,6 +138,19 @@ body.players-modal-open {
         border: none;
         transition: all 0.4s ease 0s;
      }
+
+     @media screen and (max-height: 375px) {
+        .playersname {
+            font-size: 16pt;
+        }
+        .connectbutton {
+            margin-bottom: 5px;
+            padding: 5px;
+        }
+        h1 {
+            font-size:20pt; 
+        }
+    }
 
      .notselectable {
         background: white;

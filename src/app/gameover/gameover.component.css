@@ -24,7 +24,7 @@ gameover-modal {
 }
     
 .gameover-modal-body {
-    padding: 20px;
+    padding: 10px;
     background: black;
     /* margin exposes part of the modal background */
     margin: 40px;
@@ -86,10 +86,6 @@ h1 {
         text-align: center;
         padding: 15px;
         justify-content: center;
-            /*
-            border: 1px solid cyan;
-            border-radius: 5px;
-            */
     }
 
     .comment{
@@ -105,6 +101,20 @@ h1 {
             border: 1px solid cyan;
             border-radius: 5px;
             */
+    }
+
+    @media screen and (max-height: 375px) {
+        h1 {
+            font-size:16pt;
+        }
+        .message{
+            font-size:12pt;
+            padding: 5px;
+        }
+        .comment{
+            font-size:10pt;
+            padding: 5px;
+        }
     }
 
     .buttoncontainer {

@@ -32,7 +32,7 @@
     </div>
   </div> 
   <div fxFlex="11%" style="background-color: rgba(44, 155, 44, 0.856);">
-    <div class="pegscore" *ngIf="gc.game.state.currentPhase<=4">    <!--   TEMP -->
+    <div class="pegscore" *ngIf="gc.game.state.currentPhase==4">   
       <div class="pegscore_container">
         <section class="numberCircle">
             {{gc.game.pegging.currentTotal}}

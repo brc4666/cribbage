@@ -158,6 +158,23 @@ body.scorehands-modal-open {
     font-size:12pt;
   }
 
+    
+ @media screen and (max-height: 375px) {
+    .title{ 
+      font-size:14pt;
+    }
+    .playermessage {
+      font-size:10pt;
+    }
+    .shcardwrapper {
+      width: 52px;
+      height: 64px;
+    }
+    .scorebreakdownul {
+      font-size:10pt;
+    }
+  }
+
   .scorebreakdownli {
     font: Helvetica;
     font-size:10pt;
@@ -180,4 +197,6 @@ body.scorehands-modal-open {
     background-color: #4CAF50;
     color: white;
   }
+
+
 

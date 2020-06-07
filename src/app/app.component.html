@@ -71,16 +71,12 @@
     </div>
   </div> 
 </div>
-     <!-- xLayout.xs="column" -->
-
      
-<!-- GAME INITIALISATION 
+<!-- GAME INITIALISATION -->
 
 <div *ngIf="!gc.game.config.isSetup" class="container">
   <app-playerregistration></app-playerregistration>
 </div>
--->
-
 <div *ngIf="this.doCutDeck()" class="container">
     <app-cutdeck showCards="false"></app-cutdeck>
 </div>

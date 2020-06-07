@@ -18,7 +18,6 @@ export class GameControllerService {
   
   
   constructor() {
-    // this.game.debugSetup();
    }
 
   // https://socket.io/docs/emit-cheatsheet/

@@ -124,10 +124,11 @@ export class AppComponent implements OnInit, OnDestroy  {
   
     if (environment.DEBUG_NO_SERVER) {
       this.gc.game.debugSetup();
-      this.gc.game.state.currentPhase = GamePhase.discardingToBox;
+      this.gc.game.state.currentPhase = GamePhase.unknown;
       this.gc.debug_roundStatusChanged(this.gc.game.state.currentPhase);
 
       this.showAlert = true;
+      // this.gc.game.config.isSetup = true;
       
       this.gc.setupSocketConnection(this.gc.game.whoAmI);
       this.gc.connectMe(this.gc.game.whoAmI); 
