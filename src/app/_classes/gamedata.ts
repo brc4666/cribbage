@@ -391,8 +391,6 @@ export class GameData{
    
         // confirm the local gamedata object is setup 
         this.config.isSetup = true;
-
-       // this.state.currentPhase = GamePhase.showingHands;
     }
 
     debugSetup() {
@@ -457,7 +455,7 @@ export class GameData{
         this.assignScreenPoints();
         // Initialise scores
         this.debug_initScores();
-        this.pegging.debug_forcepeggingtotal(22);
+        this.pegging.debug_forcepeggingtotal(0);
         // Initialise dealer
         this.state.currentDealer = "Brian";
         // determine which player is active
@@ -620,43 +618,6 @@ export class GameData{
         let playerIndex = this.getActivePlayerIndex( playersName );  
         // return the number of cards in their discard pile
         return this.state.activePlayers[playerIndex].discards.length; 
-    }
-
-    /**
-    * Processes all cards listed in the discards[] and tansfers them to the local box object.
-    * Cards will also be removed them from the local player's hand (i.e. hand[]),
-    * and the discard[] will be emptied on completion.
-    * 
-    * @param {string} playersName: the name of the playing discarding
-    * 
-    */ 
-   // TO DO - get rid of this.
-    addDiscardstoBox(playersName: string) {
-        // find the index of the player in the list of active players
-        let playerIndex = this.getActivePlayerIndex( playersName );  
-        // add each discarded card(s) to the box,
-        // and remove from the players hand
-        for (let i=0; i < this.state.activePlayers[playerIndex].discards.length; i++)
-        {
-            // find the index of this discard in the players card
-            let cardIndex = -1;
-            for (let ii=0; ii < this.state.activePlayers[playerIndex].hand.length; ii++) {
-                if (this.state.activePlayers[playerIndex].discards[i] == 
-                    this.state.activePlayers[playerIndex].hand[ii].card) {
-                    cardIndex = ii;
-                    break;
-                } 
-            }
-            // If we found the card (why wouldn't we ????), 
-            if ( cardIndex > -1) {
-                // add the card to the box 
-                this.theBox.AddCardtoBox( this.state.activePlayers[playerIndex].hand[cardIndex] );
-                //  and then remove it from the players hand
-                this.state.activePlayers[playerIndex].hand.splice( cardIndex, 1);
-            }   
-        }
-        this.theBox.PlayersDiscardsComplete();
-        this.emptyDiscardPile( playersName );
     }
 
     private emptyDiscardPile(playersName: string) {

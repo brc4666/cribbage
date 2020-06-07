@@ -156,10 +156,10 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
         // Have we got the correct number of cards?
         if (this.gc.game.getNumDiscards(this.playersName) < this.gc.game.state.requiredDiscardsforBox)
         {
-          alert("You must discard " + this.gc.game.state.requiredDiscardsforBox + " cards to the box!");
+          alert("You must discard " + this.gc.game.state.requiredDiscardsforBox + " card(s) to the box!");
         } else {
-          // Yes - we are cleared to commit the discard
-          // TO DO - NO !!!!! this.gc.game.addDiscardstoBox( this.playersName );
+          // Yes - we are cleared to commit the discard(s),
+          // which are in the recorded in the player's info. so 
           // send a message that the players discard process is complete
           this.gc.playersBoxDiscardsComplete( this.gc.game.state.activePlayers[this.playersIndex] );
           // Now send the next player message

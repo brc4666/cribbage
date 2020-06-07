@@ -107,29 +107,7 @@ export class VerticalhandComponent implements OnInit, OnDestroy {
  
   }
   
-  onButtonClick() {
-    switch (this.gc.game.state.currentPhase) {
-      case (GamePhase.discardingToBox):
-        // Have we got the correct number of cards?
-        if (this.gc.game.getNumDiscards(this.playersName) < this.gc.game.state.requiredDiscardsforBox)
-        {
-          alert("You must discard " + this.gc.game.state.requiredDiscardsforBox + " cards to the box!");
-        } else {
-          // Yes - we are cleared to commit the discard
-          this.gc.game.addDiscardstoBox( this.playersName );
-          // Now send the next player message
-          this.gc.playersTurnComplete( this.playersName );
-        }
-        break;
-      case (GamePhase.pegging):
-        alert("Needs some work !!!!");
-        break;
-    }
-    // Check is correct number of cards discarded
-    // and cycle who is up next
-  }
-  
-  private UpdateLocals() {
+ private UpdateLocals() {
     if (this.gc.game.config.isSetup!=true) {
       // happens in debug mode. It's ok
       return;

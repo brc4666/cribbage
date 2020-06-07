@@ -105,24 +105,8 @@ export class AppComponent implements OnInit, OnDestroy  {
       console.log ('   ' + scorer.scoreDetails(d) );
     }
   */
-   /*
-    hand.push ( new CardinHand("qs", true) );
-    hand.push ( new CardinHand("js", true) );
-    hand.push ( new CardinHand("ks", true) );
-    hand.push ( new CardinHand("ts", true) );
-    turnup = new CardinHand("5s", true);
-    scorer.calcScore( hand, turnup); // should be 13 +flush = 18
-    
   
-    hand.push ( new CardinHand("3s", true) );
-    hand.push ( new CardinHand("2s", true) );
-    hand.push ( new CardinHand("4s", true) );
-    hand.push ( new CardinHand("2d", true) );
-    turnup = new CardinHand("5s", true);
-    scorer.calcScore( hand, turnup); // should be 10
-    */
-  
-    if (environment.DEBUG_NO_SERVER) {
+    if (environment.DEBUG_NO_SERVER == true) {
       this.gc.game.debugSetup();
       this.gc.game.state.currentPhase = GamePhase.unknown;
       this.gc.debug_roundStatusChanged(this.gc.game.state.currentPhase);
@@ -140,6 +124,7 @@ export class AppComponent implements OnInit, OnDestroy  {
     if (msg==undefined) 
        return;
 
+    /*
     // Process controller message
     if ( msg[0] == MessageType.controller)
     {
@@ -173,6 +158,7 @@ export class AppComponent implements OnInit, OnDestroy  {
           break;
       }
     } 
+    */
 
   }
 
