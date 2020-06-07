@@ -92,7 +92,7 @@ export class AppComponent implements OnInit, OnDestroy  {
     hand.push ( new CardinHand("9s", true) );
     let d = scorer.pegRuns( hand );
     d = d;
-*/
+
  
     hand.push ( new CardinHand("8h", true) );
     hand.push ( new CardinHand("8d", true) );
@@ -104,7 +104,7 @@ export class AppComponent implements OnInit, OnDestroy  {
     for (let d = 0; d < scorer.scoreDetailsLength; d++) {
       console.log ('   ' + scorer.scoreDetails(d) );
     }
-
+  */
    /*
     hand.push ( new CardinHand("qs", true) );
     hand.push ( new CardinHand("js", true) );

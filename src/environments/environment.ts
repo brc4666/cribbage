@@ -16,9 +16,10 @@ export const environment = {
   SOCKET_ENDPOINT: 'https://cribbageserver.herokuapp.com',
   ASSETPATH: './assets/cards/',
   DEBUG: true,
-  DEBUG_SHOWALLHANDS: true,
-  DEBUG_NO_SERVER: false,
-  DEBUG_NUMPLAYERS: 2
+  DEBUG_SHOWALLHANDS: false,
+  DEBUG_NO_SERVER: true,
+  DEBUG_NUMPLAYERS: 4,
+  DEBUG_LAYOUT: true
 };
 
 /*

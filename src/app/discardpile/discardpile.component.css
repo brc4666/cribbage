@@ -1,24 +1,25 @@
-
-
 .discardpile {
     display: flex;
     box-sizing: border-box;
-    padding: 2px;
+    padding: 0px;
+    
     border: 1px solid rgb(0, 0,0);
     border-radius: 15px;
-    text-align: center;
+    
     overflow: auto;
-    /*margin: auto; */
   }
+
 
   .discardscontainer {
     display: flex;
     height: 100%;
     width: 100%;
     min-width: 100%;
+    /*
     border: 1px solid blue;
     border-radius: 15px;  
-    padding: 2px;
+    */
+    padding: 0px;
     box-sizing: border-box;
   }
 
@@ -28,39 +29,8 @@
     border-radius: 15px; */
     justify-content: center;
     align-items: center;
-    padding: 1px;
+    padding: 0px;
     box-sizing: border-box;
     width: 100%;
-  }
-  
-  .cardwrapper {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1px;
-    max-width: 57px;
-    max-height: 70px;
-    min-width: 2.5%;
-  }
-  
-  .cardwrapper img {
-    position: relative;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-  }
-
-  .img {
-    max-width: 57px;
-    max-height: 70px;
-  }
-  
-  .playable img:hover {
-    position: relative;
-    top: 5px;
-    left: 5px;
-  }
-  
-  .hidden {
-    visibility: hidden;
+    overflow: hidden;
   }

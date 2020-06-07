@@ -7,7 +7,7 @@ import { GameControllerService } from '../_services/gamecontroller.service';
 @Component({
   selector: 'app-cardtable',
   templateUrl: './cardtable.component.html',
-  styleUrls: ['./cardtable.component.css']
+  styleUrls: ['./cardtable.component.css', '../commonstyles.css']
 })
 export class CardtableComponent implements OnInit {
 

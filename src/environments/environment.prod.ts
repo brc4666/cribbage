@@ -6,6 +6,7 @@ export const environment = {
   DEBUG: false,
   DEBUG_SHOWALLHANDS: false,
   DEBUG_NO_SERVER: false,
-  DEBUG_NUMPLAYERS: 2
+  DEBUG_NUMPLAYERS: 2,
+  DEBUG_LAYOUT: false
 };
 

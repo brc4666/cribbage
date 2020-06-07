@@ -1,3 +1,4 @@
+
 <div class={{cssClassname}} 
     [class.activePlayer]="playersName===gc.game.state.currentActivePlayer" >
 
@@ -28,7 +29,7 @@
                 </section>
             </section>
 
-            <section class="buttoncontainer" [class.hidden]="showButton===false">
+            <section *ngIf="screenPosition=='bottom'" class="buttoncontainer" [class.hidden]="showButton===false">
                 <button type="button" class="actionbutton" (click)="onButtonClick()">{{buttonText}}</button>
             </section>
 

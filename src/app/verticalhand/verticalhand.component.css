@@ -1,64 +1,99 @@
   .playerleft {
+    justify-self: right;
     box-sizing: border-box;
     margin: auto;
-    padding: 2px;
-    /*
-    height: 100%;
-    min-height:100%;
+    padding: 0px;
     width: 100%;
-    min-width: 100%;
-    */
     border: 2px solid rgb(0, 0,0);
     border-radius: 15px;
-    overflow: auto;
+    overflow: none;
+  }
 
-    min-width: 106px; /* 100%; */
+  .lefthandcontainer {
+    display: flex;
+    float:right;
+    height: 100%;
+    width: 80%;
+    border: 2px solid blue;
+    border-radius: 15px; 
+    padding: 0px;
+    box-sizing: border-box;
+  }
 
+  .righthandcontainer {
+    display: flex;
+    float:left;
+    height: 100%;
+    width: 70%;
+    border: 2px solid blue;
+    border-radius: 15px; 
+    padding: 0px;
+    box-sizing: border-box;
   }
 
   .headingscontainer {
     display: flex;
+    /*
     border: 1px solid blue;
     border-radius: 25px;
+    */
     box-sizing: border-box;
-    align-items: left;
-    height: 20%;  
-    min-width: 100%;
+    align-items: right;
+    width: 200%;  
+    height: 10%;
     font-family: Arial, Helvetica, sans-serif;
+
   }
 
-  .playersname{
-    display: inline-flex;
+  .leftplayersname{
+    display: flex;
     font: Helvetica;
-    font-size:12px;
-    text-align: left;
-    /* border: 1px solid cyan;
-    border-radius: 25px; */
+    font-size:12pt;
+    text-align: center;
+    /*
+    border: 1px solid yellow;
+    border-radius: 25px;
+    */
     padding: 0px;
     box-sizing: border-box;
-    min-width: 40%;
-    height: 100%;  
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    position: relative;
+  }
+  @media screen and (max-width: 815px) {
+    .leftplayersname { 
+      font-size:10pt;
+    }
   }
 
-  .handcontainer {
+  .rightplayersname{
     display: flex;
-    height: 100%;
-    width: 100%;
-    min-width: 100%; 
-    border: 2px solid blue;
-    border-radius: 15px; 
-    padding: 5px;
+    font: Helvetica;
+    font-size:12pt;
+    align-items: left;
+    /*
+    border: 1px solid yellow;
+    border-radius: 25px;
+    */
+    padding: 0px;
     box-sizing: border-box;
+    transform: rotate(90deg);
+    transform-origin: right top;
+    position: relative;
+  }
+  @media screen and (max-width: 815px) {
+    .rightplayersname { 
+      font-size:10pt;
+    }
   }
 
   .vplayerscards {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
     border: 1px solid red;
     border-radius: 15px; 
     justify-content: left;
     align-items: left;
-    padding: 0px;
     box-sizing: border-box;
     width: 100%;
   }
@@ -68,43 +103,22 @@
     margin: 0px;
     justify-content: center;
     align-items: center;
-    padding: 0px;
-    max-width: 57px;
-    max-height: 70px;
-    min-width: 2.5%;
+    padding: 4px;
+    min-width: 53px;
+    min-height: 30px;
+    max-width: 53px;
+    max-height: 30px; /* 42px; */
   }
 
   .vcardwrapper img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 90%;
+    max-height: 90%;
     object-fit: cover;
   }
 
-  .playable img:hover {
-    position: relative;
-    top: 5px;
-    left: 5px;
-  }
 
-  .sideview {
-    transform: rotate(-90deg);
-    transform-origin: center center;
-    align-self: flex-end;
-    position: relative;
-    left: 10px; 
-
-  }
  
-  .buttoncontainer {
-    display: inline-flex;
-    border: 1px solid red;
-    border-radius: 15px;
-    justify-content: center;
-    align-items: center;
-    padding: 1px;
-    box-sizing: border-box;
 
-   }
 
  .hidden {
    visibility: hidden;

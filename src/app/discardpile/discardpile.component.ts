@@ -13,7 +13,7 @@ import { GameData } from '../_classes/gamedata';
   selector: 'app-discardpile',
   inputs: ['screenPosition'],
   templateUrl: './discardpile.component.html',
-  styleUrls: ['./discardpile.component.css']
+  styleUrls: ['./discardpile.component.css', '../commonstyles.css']
 })
 export class DiscardpileComponent implements OnInit, OnDestroy {
 
@@ -153,7 +153,7 @@ export class DiscardpileComponent implements OnInit, OnDestroy {
           // Now there are some card(s) in the discard pile,
           // we will to change the offset image to increase the overlap as the 
           // number of cards in the pile increaseses
-          let factor = 10 + (this.cardsinDiscardPile.length * 5);
+          let factor = 0 + (this.cardsinDiscardPile.length * 5);
           for (let i=0; i< this.cardsinDiscardPile.length; i++) {
             this.cardsinDiscardPile[i].offset = `-${i * factor}%;`;
           }

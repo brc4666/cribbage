@@ -1,28 +1,43 @@
 <div *ngIf="gc.game.state.currentActivePlayer!=''" class={{cssClassname}} 
     [class.activePlayer]="playersName===gc.game.state.currentActivePlayer">
 
-    <div class="headingscontainer">
-        <section class="playersname"> 
-            {{title}}
-        </section>
-    </div>
-
-    <!-- style="transform: rotate(270deg);  -->
-
-    <div class="handcontainer" >
-
-        <section class="vplayerscards" *ngIf="playersIndex>=0"> 
-            <section class="vcardwrapper" *ngFor="let card of gc.game.state.activePlayers[playersIndex].hand">
-                <span [class.playable]="isCardPlayable(card)">
-                    <img 
-                    (click)="onSelectCard(card)" 
-                    src='{{assetsPath}}{{card.imageFile}}' alt=card.card>
-                </span>
+    <div *ngIf="screenPosition=='left'">
+        <div class="lefthandcontainer" >
+            <section class="vplayerscards" *ngIf="playersIndex>=0"> 
+                <section class="vcardwrapper" *ngFor="let card of gc.game.state.activePlayers[playersIndex].hand">
+                    <span [class.playable]="isCardPlayable(card)">
+                        <img 
+                        (click)="onSelectCard(card)" 
+                        src='{{assetsPath}}back-side.png' alt=card.card>
+                    </span>
+                </section>
             </section>
-        </section>
-
+        </div>
+        <div class="headingscontainer">
+            <section class="leftplayersname"> 
+                {{title}}
+            </section>
+        </div>
     </div>
-   
+
+    <div *ngIf="screenPosition=='right'">
+        <div class="righthandcontainer" >
+            <section class="vplayerscards" *ngIf="playersIndex>=0"> 
+                <section class="vcardwrapper" *ngFor="let card of gc.game.state.activePlayers[playersIndex].hand">
+                    <span [class.playable]="isCardPlayable(card)">
+                        <img 
+                        (click)="onSelectCard(card)" 
+                        src='{{assetsPath}}back-side.png' alt=card.card>
+                    </span>
+                </section>
+            </section>
+        </div>
+        <div class="headingscontainer">
+            <section class="rightplayersname"> 
+                {{title}}
+            </section>
+        </div>
+    </div>
     
 </div>
 

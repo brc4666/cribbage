@@ -154,6 +154,10 @@ class GamePeggingInfo {
         this.data = newServerData;
     }
 
+    debug_forcepeggingtotal( total ) {
+        return this.data.total = total;
+    }
+
     /*
     addPeggingCard(newCard: CardinHand) : number {
         var score = 0;
@@ -307,7 +311,7 @@ class GameStatus {
     }
 
     addPlayersHand_debug( playerIndex: number, hand: CardinHand[]) {
-        this.data.activePlayers[playerIndex].hand = hand;
+        this.data.activePlayers[playerIndex].hand = hand.slice();
     }
 
     /**
@@ -405,14 +409,17 @@ export class GameData{
     debugSetup() {
         let index = 0;
 
+        this.state.activePlayers.splice(0, this.state.activePlayers.length);
+
+        index = this.state.addActivePlayer("Brian", "S"); 
+        let BriansCards = ['9s','7c','tc','kc','3c','js'];
         let Brianshand = [];
-        Brianshand.push( new CardinHand('9s', true));
-        Brianshand.push( new CardinHand('7c', true));
-        Brianshand.push( new CardinHand('tc', true));
-        Brianshand.push( new CardinHand('kc', true));
-        Brianshand.push( new CardinHand('3c', true));
-        Brianshand.push( new CardinHand('js', true));
-        index = this.state.addActivePlayer("Brian", "S");        
+        for (let i=0; i<6 ; i++) {
+            Brianshand.push( new CardinHand(BriansCards[i], true));
+            if ( ( environment.DEBUG_LAYOUT == true) && (i < 4) ) {
+                this.addCardtoDiscardPile("Brian", BriansCards[i]);
+            }
+        }
         this.state.addPlayersHand_debug(index, Brianshand);
 
         index = this.state.addActivePlayer("Kate", "N");
@@ -424,7 +431,11 @@ export class GameData{
         Kateshand.push( new CardinHand('4s', true));
         Kateshand.push( new CardinHand('js', true));
         this.state.addPlayersHand_debug(index, Kateshand);
+        if ( environment.DEBUG_LAYOUT == true) {
+            this.addCardtoDiscardPile("Kate","as");
+        }
 
+        this.state.numActivePlayers = 2;
         if (environment.DEBUG_NUMPLAYERS==4) {
             let Matthewshand = [];
             Matthewshand.push( new CardinHand('9s', false));
@@ -443,32 +454,29 @@ export class GameData{
             Melshand.push( new CardinHand('4s', false));
             index = this.state.addActivePlayer("Melanie", "E");
             this.state.addPlayersHand_debug(index, Melshand);
+        
+            this.state.numActivePlayers = 4;
         }
 
-        // NB !!!! only for testing discard pile layout
-        /*
-        this.addCardtoDiscardPile("Kate","ad");
-        this.addCardtoDiscardPile("Kate","2d");
-        this.addCardtoDiscardPile("Kate","ah");
-        this.addCardtoDiscardPile("Kate","ac");
-        this.addCardtoDiscardPile("Kate","as");
-        */
-
+        if ( environment.DEBUG_LAYOUT == true) {
+            this.state.turnUpCard = "ks";
+            this.state.publicMessage = "Pegging messages go here !";
+        }
+     
         this.setwhoIAm("Brian")
         // Work out who is placed where on this player's screen
         this.assignScreenPoints();
         // Initialise scores
         this.debug_initScores();
+        this.pegging.debug_forcepeggingtotal(22);
         // Initialise dealer
-        for (let i = 0; i < this.state.activePlayers.length; i++) {
-            if (this.state.activePlayers[i].name==this.whoAmI) {
-                this.state.currentDealer = this.state.activePlayers[i].name;
-                break;
-            }
-        }
+        this.state.currentDealer = "Brian";
         // determine which player is active
-        this.state.currentActivePlayer = this.whoIsNext(this.state.currentDealer);
+        this.state.currentActivePlayer = "Brian";
+
         this.config.isSetup = true;
+
+        this.state.currentPhase = GamePhase.pegging;
     }
 
     setwhoIAm(name:string) {

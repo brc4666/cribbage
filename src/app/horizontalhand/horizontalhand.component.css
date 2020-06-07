@@ -1,23 +1,17 @@
-.myhand {
-  box-sizing: border-box;
-  margin: auto;
-  padding: 2px;
-  background-color: white; 
-  border: 2px solid rgb(51, 24, 24);
-  border-radius: 15px;
-  overflow: auto;
-}
+  .myhand {
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0px;
+    background-color: white; 
+    border: 2px solid rgb(51, 24, 24);
+    border-radius: 15px;
+    overflow: auto;
+  }
   
   .playeropposite {
      box-sizing: border-box;
      margin: auto;
-     padding: 2px;
-     /*
-     min-height:100%;
-     width: 100%;
-     min-width: 100px;
-     */
-     /* background-color: white; */
+     padding: 0px;
      border: 2px solid rgb(0, 0,0);
      border-radius: 15px;
      overflow: auto;
@@ -29,8 +23,9 @@
     border-radius: 25px; */
     box-sizing: border-box;
     height: 20%;  
-    min-width: 100%;
+    min-width: 95%;
     font-family: Arial, Helvetica, sans-serif;
+    margin: 2px;
   }
 
   .playersname{
@@ -59,31 +54,38 @@
     border-radius: 25px; */
     padding: 0px;
     box-sizing: border-box;
-    
     min-width: 60%; 
-    
-
+  }
+  @media screen and (max-width: 815px) {
+    .playersname { 
+      font-size:10pt;
+    }
+    .playermessage {
+      font-size:8pt;
+    }
   }
 
   .handcontainer {
     display: flex;
     height: 80%;
-    width: 100%;
-    min-width: 100%;
+    width: 99%;
+
     /* border: 2px solid black;
     border-radius: 15px; */
-    padding: 5px;
+    padding: 0px;
     box-sizing: border-box;
+    margin: 2px;
   }
 
   .playerscards {
-    display: flex;
-    /*
+    display: inline-flex;
+    
     border: 1px solid red;
-    border-radius: 15px; */
+    border-radius: 15px; 
+
     justify-content: left;
     align-items: left;
-    padding: 1px;
+    padding-left: 2px;
     box-sizing: border-box;
     width: 75%;
   }
@@ -92,15 +94,27 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    padding-right: 2px;
+    padding: 0px;
+    min-width: 57px;
+    min-height: 70px;
     max-width: 57px;
     max-height: 70px;
-    min-width: 2.5%;
+
+  }
+
+  @media screen and (max-width: 815px) {
+    .cardwrapper {
+      min-width: 43px;
+      min-height: 50px;
+      max-width: 43px;
+      max-height: 50px;
+    }
   }
 
   .cardwrapper img {
-    max-width: 100%;
-    max-height: 100%;
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
     object-fit: cover;
   }
  
@@ -111,27 +125,40 @@
  }
   
   .buttoncontainer {
-    display: flex;
-    /* border: 1px solid red;
-    border-radius: 15px; */
+    display: inline-flex;
+    border: 1px solid red;
+    border-radius: 15px; 
     align-content: right;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     padding: 1px;
     box-sizing: border-box;
+    width: 20%;
 
    }
 
   .actionbutton {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: right;
     align-content: flex-end;
     background-color: #4CAF50;
     border: none;
     border-radius: 5px;
     color: white;
-    padding: 10px 10px;
+    padding: 5% 10%; /*  10px; */
     text-align: center;
-    font-size: 16px;
+    font-size: 12pt;
     cursor: pointer;
+  }
+  @media screen and (max-width: 815px) {
+    .actionbutton {
+      padding: 5px;
+      font-size: 10pt;
+    }
   }
   
   .hidden {

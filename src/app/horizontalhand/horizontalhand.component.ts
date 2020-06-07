@@ -235,7 +235,7 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
   }
   
   updateButtonVisibility( show: boolean, caption: string) {
-    if (environment.DEBUG_NO_SERVER==true) {
+    if (environment.DEBUG_SHOWALLHANDS==true) {
       this.showButton = true;
     } else if (this.screenPosition==='bottom') {
       this.showButton = show;

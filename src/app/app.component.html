@@ -1,19 +1,17 @@
 <!-- HEADER SECTION -->
 <div class="headercontainer"
      fxLayout
-     fxLayout.xs="column"
      fxLayoutAlign="center"
      fxLayoutGap="2px"
      fxLayoutGap.xs="0">
   <div fxFlex>
-    <span class="title" >{{title}}</span>
+    <span class="maintitle" >{{title}}</span>
   </div>
 </div>
 
 <!-- TOP SECTION -->
 <div class="topcontainer"
      fxLayout
-     fxLayout.xs="column"
      fxLayoutAlign="center"
      fxLayoutGap="2px"
      fxLayoutGap.xs="0">
@@ -21,7 +19,7 @@
     <app-totalscore seats="NS" scoreIndex=0></app-totalscore>
   </div>
   <div fxFlex="10%"></div>
-  <div fxFlex=40%>
+  <div class="topcontainerwidth">
     <app-horizontalhand screenPosition="top" cssClassname="playeropposite" showCards="false"></app-horizontalhand>
   </div> 
   <div fxFlex="10%"></div>
@@ -33,35 +31,30 @@
 <!-- CENTRAL SECTION -->
 <div class="middlecontainer"
   fxLayout
-  fxLayout.xs="column"
   fxLayoutAlign="center"
-  fxLayoutGap="2px"
+  fxLayoutGap="0px"
   fxLayoutGap.xs="0">
-  <div fxFlex="10%" *ngIf="gc.game.state.numActivePlayers>2">
-    <!--
-    <app-verticalhand *ngIf="gameData.state.numActivePlayers>2" screenPosition="left" cssClassname="playerleft" showCards="false"></app-verticalhand>
-    -->
+  <div class="vhandcontainer" *ngIf="gc.game.state.numActivePlayers>2">
+
+    <app-verticalhand screenPosition="left" cssClassname="playerleft" showCards="false"></app-verticalhand>
+ 
   </div>
-  <div fxFlex=80%>
+  <div fxFlex=70%>
     <app-cardtable></app-cardtable>
   </div>
-  <div fxFlex="10%" *ngIf="gc.game.state.numActivePlayers>2">
-    <!--
-    <app-verticalhand *ngIf="gameData.state.numActivePlayers>2" screenPosition="right" cssClassname="playerleft" showCards="false"></app-verticalhand>
-    -->
+  <div class="vhandcontainer" *ngIf="gc.game.state.numActivePlayers>2">
+
+    <app-verticalhand screenPosition="right" cssClassname="playerleft" showCards="false"></app-verticalhand>
+
   </div>
 </div>
 
 <!-- BOTTOM SECTION -->
 <div class="bottomcontainer"
-     fxLayout
-     fxLayout.xs="column"
-     fxLayoutAlign="center"
-     fxLayoutGap="2px"
-     fxLayoutGap.xs="0">
-  <div fxFlex="10%"></div>
-  <div fxFlex="10%" fxFlexOrder="6"></div>
-  <div fxFlex="40%">
+  fxLayout
+  fxLayoutAlign="center"
+  fxLayoutGap="0px">
+  <div class="bottomcontainerwidth">
     <app-horizontalhand screenPosition="bottom" cssClassname="myhand" showCards="true"></app-horizontalhand>
   </div>
 </div>
@@ -69,22 +62,24 @@
 <!-- MESSAGE SECTION -->
 <div class="bottomcontainer"
      fxLayout
-     fxLayout.xs="column"
      fxLayoutAlign="center"
-     fxLayoutGap="2px"
+     fxLayoutGap="0px"
      fxLayoutGap.xs="0">
-  <div fxFlex="40%">
+  <div >
     <div class="msgcontainer">
       <span class="msgstyle">{{this.gc.game.state.publicMessage}}</span>
     </div>
   </div> 
 </div>
+     <!-- xLayout.xs="column" -->
 
-<!-- GAME INITIALISATION -->
+     
+<!-- GAME INITIALISATION 
 
 <div *ngIf="!gc.game.config.isSetup" class="container">
   <app-playerregistration></app-playerregistration>
 </div>
+-->
 
 <div *ngIf="this.doCutDeck()" class="container">
     <app-cutdeck showCards="false"></app-cutdeck>

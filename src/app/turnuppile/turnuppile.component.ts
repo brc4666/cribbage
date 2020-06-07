@@ -10,7 +10,7 @@ import { CardinHand } from '../_classes/cardinhand';
 @Component({
   selector: 'app-turnuppile',
   templateUrl: './turnuppile.component.html',
-  styleUrls: ['./turnuppile.component.css']
+  styleUrls: ['./turnuppile.component.css', '../commonstyles.css']
 })
 export class TurnuppileComponent implements OnInit, OnDestroy {
 

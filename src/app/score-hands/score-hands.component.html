@@ -9,7 +9,7 @@
 
             <div class="handcontainer" *ngIf="playersIndex>=0">
                 <section class="playerscards"  *ngIf="this.gc.game.state.activePlayers[playersIndex].hand"> 
-                    <section class="cardwrapper" *ngFor="let card of cards">
+                    <section class="shcardwrapper" *ngFor="let card of cards">
                         <span [class.hidden]="card.isInVisible===true">
                             <img src='{{assetsPath}}{{card.imageFile}}' alt=card.card>
                         </span>

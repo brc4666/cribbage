@@ -30,3 +30,45 @@
     -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
     transition: all 0.4s ease 0s;
  }
+
+ /*
+ *
+ * STLYING FOR CARDS ON MAIN DISPLAY (i.e. not ScoreHands or CutDeck)
+ *
+ * @media screen and (max-width: 900px) and (min-width: 600px), (min-width: 1100px) {
+      max-width: 57px;
+   max-height: 70px;
+ */
+   
+ .cardwrapper {
+   display: inline-flex;
+   justify-content: center;
+   align-items: center;
+   padding: 0px;
+   max-width: 57px;
+   max-height: 70px;
+ }
+
+ @media screen and (max-width: 815px) {
+   .cardwrapper {
+      max-width: 43px;
+      max-height: 50px;
+   }
+ }
+ 
+ .cardwrapper img {
+   position: relative;
+   max-width: 90%;
+   max-height: 90%;
+   object-fit: cover;
+ }
+
+ .playable img:hover {
+   position: relative;
+   top: 5px;
+   left: 5px;
+ }
+ 
+ .hidden {
+   visibility: hidden;
+ }
