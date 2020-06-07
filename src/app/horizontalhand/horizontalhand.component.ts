@@ -190,7 +190,9 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
     }
 
     // Update view elements: title, message and button text
-    if (this.gc.game.state.currentPhase == GamePhase.unknown) {
+    if ( (this.gc.game.state.currentPhase == GamePhase.unknown) ||
+         (this.gc.game.state.currentPhase==GamePhase.showingHands) ||
+         (this.gc.game.state.currentPhase==GamePhase.gameover) ) {
       this.buttonText = "";
       this.showButton = false;
     } else if (this.gc.game.state.currentPhase==GamePhase.cuttingForTurnup) {
@@ -201,10 +203,14 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
       if (this.playersName===this.gc.game.state.currentActivePlayer) {
         switch (this.gc.game.state.currentPhase) {
           case (GamePhase.discardingToBox):
+            var plural: string = "";
+            if (this.gc.game.state.numActivePlayers<=2) {
+              plural = "s"
+            }
             if (this.gc.game.whoAmI == this.gc.game.state.currentDealer ) {
-              this.actionMessage = "Select cards for your box ...";
+              this.actionMessage = "Select card"+plural+" for your box ...";
             } else {
-              this.actionMessage = "Select cards for " + this.gc.game.state.currentDealer +"'s box ...";
+              this.actionMessage = "Select card"+plural+" for " + this.gc.game.state.currentDealer +"'s box ...";
             }
             this.updateButtonVisibility( true, "Discard" );
             break;
