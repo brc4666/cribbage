@@ -54,8 +54,7 @@ export class GameoverComponent implements OnInit, OnDestroy {
     this.title += " who won by " + this.wonBy + " points.";
 
     if ( (this.gc.game.state.numActivePlayers>2 ) && ( "M&Ms" !== this.gc.game.scoring.playerScores[winnersIndex].displayname) ) {
-      this.comment = "Oh ! Come on Matthew - you have to do better than that !";
-      
+      this.comment = "Oh ! Come on Matthew - you have to do better than that !";   
     } else if (this.wonBy <= 5) {
       this.comment = "Wow ! That was a close one !";    
     } else if (this.wonBy <= 10) {
