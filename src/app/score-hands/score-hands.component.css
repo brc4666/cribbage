@@ -159,7 +159,7 @@ body.scorehands-modal-open {
   }
 
     
- @media screen and (max-height: 375px) {
+ @media only screen and (max-height: 375px) {
     .title{ 
       font-size:14pt;
     }

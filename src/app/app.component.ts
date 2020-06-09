@@ -111,9 +111,13 @@ export class AppComponent implements OnInit, OnDestroy  {
 
 
       this.showAlert = true;
+
+
       this.gc.game.config.isSetup = true;
       this.gc.game.state.currentPhase = GamePhase.pegging;
       this.gc.debug_roundStatusChanged(this.gc.game.state.currentPhase);
+
+
 
       // while ( window.innerWidth < window.innerHeight) {
        //alert("Please rotate your device !");

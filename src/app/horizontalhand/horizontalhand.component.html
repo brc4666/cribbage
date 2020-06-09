@@ -13,7 +13,7 @@
     
         <div class="handcontainer" *ngIf="playersIndex>=0">
             <section class="playerscards"  *ngIf="this.gc.game.state.activePlayers[playersIndex].hand"> 
-                <section class="cardwrapper" *ngFor="let card of gc.game.state.activePlayers[playersIndex].hand">
+                <section class="cardwrapper" [class.activecardswrapper]="screenPosition=='bottom'" *ngFor="let card of gc.game.state.activePlayers[playersIndex].hand">
                     <div *ngIf="this.showCards=='true'" >
                         <span [class.playable]="isCardPlayable(card)" [class.hidden]="isCardHidden(card)">
                             <img 

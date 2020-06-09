@@ -11,22 +11,26 @@
 
   .lefthandcontainer {
     display: flex;
-    float:right;
+    float: right;
     height: 100%;
-    width: 80%;
+    width: 70%;
+    /*
     border: 2px solid blue;
     border-radius: 15px; 
+    */
     padding: 0px;
     box-sizing: border-box;
   }
 
   .righthandcontainer {
     display: flex;
-    float:left;
+    float: left;
     height: 100%;
     width: 70%;
+    /*
     border: 2px solid blue;
     border-radius: 15px; 
+    */
     padding: 0px;
     box-sizing: border-box;
   }
@@ -38,8 +42,8 @@
     border-radius: 25px;
     */
     box-sizing: border-box;
-    align-items: right;
-    width: 200%;  
+    /* align-items: right; */
+    width: 150%;  
     height: 10%;
     font-family: Arial, Helvetica, sans-serif;
 
@@ -60,7 +64,7 @@
     transform-origin: left top;
     position: relative;
   }
-  @media screen and (max-width: 815px) {
+  @media only screen and (max-height: 375px) {
     .leftplayersname { 
       font-size:10pt;
     }
@@ -70,7 +74,8 @@
     display: flex;
     font: Helvetica;
     font-size:12pt;
-    align-items: left;
+    text-align: left;
+    /*align-items: left;*/
     /*
     border: 1px solid yellow;
     border-radius: 25px;
@@ -81,7 +86,7 @@
     transform-origin: right top;
     position: relative;
   }
-  @media screen and (max-width: 815px) {
+  @media only screen and (max-height: 375px) {
     .rightplayersname { 
       font-size:10pt;
     }
@@ -90,35 +95,44 @@
   .vplayerscards {
     display: flex;
     flex-wrap: wrap; 
+    /*
     border: 1px solid red;
     border-radius: 15px; 
+    */
     justify-content: left;
     align-items: left;
     box-sizing: border-box;
-    width: 100%;
+    width: 80%; 
   }
 
  .vcardwrapper {
     display: flex;
     margin: 0px;
+    /*
     justify-content: center;
     align-items: center;
+    */
     padding: 4px;
-    min-width: 53px;
+    min-width: 50px;
     min-height: 30px;
-    max-width: 53px;
+    max-width: 50px;
     max-height: 30px; /* 42px; */
+  }
+  @media only screen and (max-height: 375px) {
+    .vcardwrapper {
+      min-width: 45px;
+      min-height: 25px;
+      max-width: 45px;
+      max-height: 25px;
+      padding: 2px;
+    }
   }
 
   .vcardwrapper img {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: cover;
   }
-
-
- 
-
 
  .hidden {
    visibility: hidden;

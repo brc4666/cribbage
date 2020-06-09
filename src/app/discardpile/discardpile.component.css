@@ -3,8 +3,10 @@
     box-sizing: border-box;
     padding: 0px;
     
+    /*
     border: 1px solid rgb(0, 0,0);
     border-radius: 15px;
+    */
     
     overflow: auto;
   }
