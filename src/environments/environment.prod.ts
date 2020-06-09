@@ -5,7 +5,7 @@ export const environment = {
   ASSETPATH: './assets/cards/',
   DEBUG: false,
   DEBUG_SHOWALLHANDS: false,
-  DEBUG_NO_SERVER: false,
+  DEBUG_NO_SERVER: true,
   DEBUG_NUMPLAYERS: 2,
   DEBUG_LAYOUT: false
 };
