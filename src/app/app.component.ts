@@ -108,14 +108,22 @@ export class AppComponent implements OnInit, OnDestroy  {
   
     if (environment.DEBUG_NO_SERVER == true) {
       this.gc.game.debugSetup();
-      this.gc.game.state.currentPhase = GamePhase.unknown;
-      this.gc.debug_roundStatusChanged(this.gc.game.state.currentPhase);
+
 
       this.showAlert = true;
-      // this.gc.game.config.isSetup = true;
-      
-      this.gc.setupSocketConnection(this.gc.game.whoAmI);
-      this.gc.connectMe(this.gc.game.whoAmI); 
+      this.gc.game.config.isSetup = true;
+      this.gc.game.state.currentPhase = GamePhase.pegging;
+      this.gc.debug_roundStatusChanged(this.gc.game.state.currentPhase);
+
+      // while ( window.innerWidth < window.innerHeight) {
+       //alert("Please rotate your device !");
+      // }
+
+     // alert("Width:" + window.innerWidth + '/Height:' + window.innerHeight);
+      //alert(window.screen.availHeight);
+
+      // this.gc.setupSocketConnection(this.gc.game.whoAmI);
+      // this.gc.connectMe(this.gc.game.whoAmI); 
     }
 
   }

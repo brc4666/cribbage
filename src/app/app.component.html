@@ -74,7 +74,7 @@
      
 <!-- GAME INITIALISATION -->
 
-<div *ngIf="!gc.game.config.isSetup" class="container">
+<div *ngIf="!gc.game.config.isSetup==true" class="container">
   <app-playerregistration></app-playerregistration>
 </div>
 <div *ngIf="this.doCutDeck()" class="container">
