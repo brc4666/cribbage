@@ -97,7 +97,7 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
       if (card.played==false) {
         return false;
       } else if ( this.screenPosition === 'bottom') {
-        return false;
+        return true;
       } else {
         return true;
       }
