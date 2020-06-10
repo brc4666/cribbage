@@ -30,7 +30,7 @@ body {
     min-height: 300px;
 }
 
-@media only screen and (max-height: 375px) {
+@media only screen and (max-height: 420px) {
     .headercontainer {
         height: 0px;
     }
