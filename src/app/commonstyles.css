@@ -72,3 +72,19 @@
  .hidden {
    visibility: hidden;
  }
+
+
+ /*
+
+    COMMON SCREEN SIZES:
+
+                                Width   Height
+      iPhone 6s:  Portrait:       375     553
+                  Landscape:      627     352
+      iPhone 8s:  Portrait:       414     662
+                  Landscape:      729     410
+      iPhone 11:  Portrait:       414     719
+                  Landscape:      808     414
+
+
+ */
