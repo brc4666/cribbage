@@ -104,8 +104,6 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
     } else {
       return false;
     }
-    // 
-
   }
 
   onSelectCard(card: CardinHand) {
@@ -120,7 +118,6 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
 
     switch (this.gc.game.state.currentPhase) {
       case (GamePhase.pegging):
-        // check if not over 31 ! // TO DO
         if (this.gc.game.pegging.currentTotal + card.cardValue > 31) {
           alert(" You cannot play that card. Current Total = " + this.gc.game.pegging.currentTotal);
           return;
@@ -129,7 +126,6 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
         this.selectedCard = card.card; 
         // Update the current player's list of discarded cards
         this.gc.game.addCardtoDiscardPile(this.playersName, card.card);
-
         this.gc.sendDiscard(this.playersName, card.card);
         break;
       case (GamePhase.discardingToBox):
@@ -174,6 +170,10 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
     }
   }
 
+  onClickName() {
+    alert("Width:" + window.innerWidth + '/Height:' + window.innerHeight);
+  }
+
   private UpdateLocals() {
     if (this.gc.game.config.isSetup!=true) {
       this.showButton = false;
@@ -182,7 +182,7 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
     this.playersIndex = this.gc.game.getActivePlayerIndex( this.playersName);
     this.compassPoint = this.gc.game.playersCompassPoint(this.playersName);
     if( (this.playersName!="") && (this.compassPoint!="") ) {
-      this.title = "["+ this.compassPoint +"] : " + this.playersName;
+      this.title = /* "["+ this.compassPoint +"] : " +*/ this.playersName;
       if (this.gc.game.state.currentDealer==this.playersName)
       {
         this.title = this.title + " (Dealer)";

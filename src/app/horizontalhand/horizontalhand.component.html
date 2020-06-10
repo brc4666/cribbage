@@ -3,7 +3,7 @@
     [class.activePlayer]="playersName===gc.game.state.currentActivePlayer" >
 
         <div class="headingscontainer" >
-            <section class="playersname"> 
+            <section class="playersname" (click)="onClickName()"> 
                 {{title}}
             </section>
             <section *ngIf="screenPosition=='bottom'" class="playermessage"> 

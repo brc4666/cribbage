@@ -56,11 +56,13 @@ export class CardinHand {
 
     cardPlayed() {
         this.played = true;
+        this.isInVisible = true;
         this.imageFile = 'back.png';
     }
 
     cardUnPlayed(screenPosition: string) {
         this.played = false;
+        this.isInVisible = false;
         this.updateCardImage(screenPosition)
     }
 }

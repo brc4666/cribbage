@@ -35,7 +35,7 @@
     text-align: left;
     /* border: 1px solid cyan;
     border-radius: 25px; */
-    padding: 0px;
+    padding-left: 5px;
     box-sizing: border-box;
     min-width: 40%;
     height: 100%;  
@@ -69,10 +69,9 @@
     display: flex;
     height: 80%;
     width: 99%;
-
     /* border: 2px solid black;
     border-radius: 15px; */
-    padding: 0px;
+    padding: 2px;
     box-sizing: border-box;
     margin: 2px;
   }
@@ -148,8 +147,10 @@
   
   .buttoncontainer {
     display: inline-flex;
+    /*
     border: 1px solid red;
     border-radius: 15px; 
+    */
     align-content: right;
     justify-content: right;
     align-items: center;

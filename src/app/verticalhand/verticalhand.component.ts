@@ -78,35 +78,25 @@ export class VerticalhandComponent implements OnInit, OnDestroy {
     return ( (card.showCard==true) && (this.playersName===this.gc.game.state.currentActivePlayer) );
   }
 
-  onSelectCard(card: CardinHand) {
-    if ( (card.showCard!==true) || (card.played===true) ) {
-      // we've got a click message from a card that has already been played,
-      // or should be invisible ... neither of which should allow a clock, but ...
-      alert("Not sure why you were allowed to, but you cannot play that card. Sorry!")
-      return;
+  isCardHidden(card: CardinHand): boolean {
+    if (card.isInVisible==true) {
+      return true;
+    } else if ( this.gc.game.state.currentPhase == GamePhase.discardingToBox ) {
+      return false;
+    } else if ( this.gc.game.state.currentPhase == GamePhase.pegging ) {
+      if (card.played==false) {
+        return false;
+      } else if ( this.screenPosition === 'bottom') {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
     }
-
-    switch (this.gc.game.state.currentPhase) {
-      case (GamePhase.pegging):
-        break;
-      case (GamePhase.discardingToBox):
-        // check correct number of cards are ready to be discarded
-        if (this.gc.game.getNumDiscards(this.playersName) >= this.gc.game.state.requiredDiscardsforBox)
-        {
-          alert("You cannot discard anymore cards!");
-        } else {
-          // We are good to go with the discard operation
-          this.selectedCard = card.card; 
-          // Update the current player's list of discarded cards
-          // NB. 
-          this.gc.game.addCardtoDiscardPile(this.playersName, card.card);
-
-        }
-        break;
-    }
- 
   }
-  
+
+   
  private UpdateLocals() {
     if (this.gc.game.config.isSetup!=true) {
       // happens in debug mode. It's ok
@@ -116,7 +106,7 @@ export class VerticalhandComponent implements OnInit, OnDestroy {
     this.playersIndex = this.gc.game.getActivePlayerIndex( this.playersName);
     this.compassPoint = this.gc.game.playersCompassPoint(this.playersName);
     if( (this.playersName!="") && (this.compassPoint!="") ) {
-      this.title = "["+ this.compassPoint +"] : " + this.playersName;
+      this.title = /* "["+ this.compassPoint +"] : " + */ this.playersName;
       if (this.gc.game.state.currentDealer==this.playersName)
       {
         this.title = this.title + " (Dealer)";

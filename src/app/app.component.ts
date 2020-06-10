@@ -105,7 +105,7 @@ export class AppComponent implements OnInit, OnDestroy  {
       console.log ('   ' + scorer.scoreDetails(d) );
     }
   */
- alert("Width:" + window.innerWidth + '/Height:' + window.innerHeight);
+ // alert("Width:" + window.innerWidth + '/Height:' + window.innerHeight);
   
     if (environment.DEBUG_NO_SERVER == true) {
       this.gc.game.debugSetup();
@@ -124,7 +124,7 @@ export class AppComponent implements OnInit, OnDestroy  {
        //alert("Please rotate your device !");
       // }
 
-      alert("Width:" + window.innerWidth + '/Height:' + window.innerHeight);
+      // alert("Width:" + window.innerWidth + '/Height:' + window.innerHeight);
       //alert(window.screen.availHeight);
 
       // this.gc.setupSocketConnection(this.gc.game.whoAmI);

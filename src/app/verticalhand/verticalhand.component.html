@@ -5,15 +5,13 @@
         <div class="lefthandcontainer" >
             <section class="vplayerscards" *ngIf="playersIndex>=0"> 
                 <section class="vcardwrapper" *ngFor="let card of gc.game.state.activePlayers[playersIndex].hand">
-                    <span [class.playable]="isCardPlayable(card)">
-                        <img 
-                        (click)="onSelectCard(card)" 
-                        src='{{assetsPath}}back-side.png' alt=card.card>
+                    <span [class.playable]="isCardPlayable(card)" [class.hidden]="isCardHidden(card)">
+                        <img src='{{assetsPath}}back-side.png' alt=card.card>
                     </span>
                 </section>
             </section>
         </div>
-        <div class="headingscontainer" style="align-items: right;">
+        <div class="leftheadingscontainer" style="align-items: right;">
             <section class="leftplayersname"> 
                 {{title}}
             </section>
@@ -24,15 +22,13 @@
         <div class="righthandcontainer" >
             <section class="vplayerscards" *ngIf="playersIndex>=0"> 
                 <section class="vcardwrapper" *ngFor="let card of gc.game.state.activePlayers[playersIndex].hand">
-                    <span [class.playable]="isCardPlayable(card)">
-                        <img 
-                        (click)="onSelectCard(card)" 
-                        src='{{assetsPath}}back-side.png' alt=card.card>
+                    <span [class.playable]="isCardPlayable(card)" [class.hidden]="isCardHidden(card)">
+                        <img src='{{assetsPath}}back-side.png' alt=card.card>
                     </span>
                 </section>
             </section>
         </div>
-        <div class="headingscontainer">
+        <div class="rightheadingscontainer">
             <section class="rightplayersname"> 
                 {{title}}
             </section>

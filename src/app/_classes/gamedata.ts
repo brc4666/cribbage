@@ -403,7 +403,7 @@ export class GameData{
         let Brianshand = [];
         for (let i=0; i<6 ; i++) {
             Brianshand.push( new CardinHand(BriansCards[i], true));
-            if ( ( environment.DEBUG_LAYOUT == true) && (i < 4) ) {
+            if ( ( environment.DEBUG_LAYOUT == true) && (i < 2) ) {
                 this.addCardtoDiscardPile("Brian", BriansCards[i]);
             }
         }
@@ -419,7 +419,7 @@ export class GameData{
         Kateshand.push( new CardinHand('js', true));
         this.state.addPlayersHand_debug(index, Kateshand);
         if ( environment.DEBUG_LAYOUT == true) {
-            this.addCardtoDiscardPile("Kate","as");
+            this.addCardtoDiscardPile("Kate","ad");
         }
 
         this.state.numActivePlayers = 2;
