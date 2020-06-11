@@ -224,6 +224,11 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
               this.updateButtonVisibility( true, "Go" );
             }
         }
+        /*
+        if ( (environment.DEBUG_LAYOUT==true) && (this.screenPosition==='bottom') ) {
+          this.updateButtonVisibility( true, "Discard" );
+        }
+        */
       } else {  
         let submsg = "";
         switch (this.gc.game.state.currentPhase) {
@@ -241,9 +246,7 @@ export class HorizontalhandComponent implements OnInit, OnDestroy {
   }
   
   updateButtonVisibility( show: boolean, caption: string) {
-    if (environment.DEBUG_SHOWALLHANDS==true) {
-      this.showButton = true;
-    } else if (this.screenPosition==='bottom') {
+    if (this.screenPosition==='bottom') {
       this.showButton = show;
     } else {
       this.showButton = false;

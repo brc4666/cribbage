@@ -51,6 +51,7 @@
    min-height: 60px;
  }
 
+ /*
  @media only screen and (max-height: 425px) {
   .cardwrapper {
      max-width: 45px;
@@ -59,6 +60,7 @@
      min-height: 53px;
   }
 }
+*/
 
  @media only screen and (max-height: 375px) {
    .cardwrapper {
