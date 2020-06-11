@@ -1,5 +1,5 @@
 .container33 {
-  height: 33%;
+  height: 33.3%;
 }
 /*
 .container33 {
@@ -26,6 +26,7 @@
     height: 100%;
     width: 100%;
     min-width: 100%; 
+    min-height: 100%;
     /*
     border: 0px solid blue;
     border-radius: 15px;  
@@ -43,6 +44,7 @@
     padding: 0px;
     box-sizing: border-box;
     width: 100%;
+    overflow: hidden;
   }
   
   .pegscore {

@@ -47,12 +47,25 @@
    padding: 0px;
    max-width: 50px;
    max-height: 60px;
+   min-width: 50px;
+   min-height: 60px;
  }
+
+ @media only screen and (max-height: 425px) {
+  .cardwrapper {
+     max-width: 45px;
+     max-height: 53px;
+     min-width: 45px;
+     min-height: 53px;
+  }
+}
 
  @media only screen and (max-height: 375px) {
    .cardwrapper {
       max-width: 40px;
       max-height: 45px;
+      min-width: 40px;
+      min-height: 45px;
    }
  }
  
@@ -79,13 +92,13 @@
 
     COMMON SCREEN SIZES:
 
-                                Width   Height
-      iPhone 6s:  Portrait:       375     553
-                  Landscape:      627     352
-      iPhone 8s:  Portrait:       414     662
-                  Landscape:      729     410
-      iPhone 11:  Portrait:       414     719
-                  Landscape:      808     414
+                                Width    Height
+      iPhone 6s:  Portrait:       375      553
+                  Landscape:      627    * 352 * -> @media only screen and (max-height: 375px) {
+      iPhone 8s:  Portrait:       414      662
+                  Landscape:      729    * 410 * -
+      iPhone 11:  Portrait:       414      719   |-> @media only screen and (max-height: 425px) {
+                  Landscape:      808    * 414 * -
 
 
  */

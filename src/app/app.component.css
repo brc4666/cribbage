@@ -1,5 +1,7 @@
-body {
+.body {
     background-color: yellow;
+    margin: 0px;
+    padding: 0px;
 }
 
 
@@ -26,36 +28,8 @@ body {
 }
 .vhandcontainer {
     width:85px;
-    max-height: 300px;
-    min-height: 300px;
-}
-
-@media only screen and (max-height: 420px) {
-    .headercontainer {
-        height: 0px;
-    }
-    .topcontainer {
-        height: 65px;
-    }
-    .topcontainerwidth {
-        width:200px;
-    }
-    .middlecontainer {
-        height: 150px; 
-    }
-    .bottomcontainer {
-        height: 75px;
-    }
-    .bottomcontainerwidth {
-        width:320px;
-    }
-    .messagecontainer {
-        height: 20px;
-    }
-    .vhandcontainer {
-        width:60px;
-        height: 100px;
-    }
+    max-height: 309px;
+    min-height: 309px;
 }
 
 .maintitle {
@@ -68,11 +42,6 @@ body {
     text-align: center;
     justify-self: center;
     margin: auto;
-}
-@media only screen and (max-height: 420px) {
-    .maintitle {
-        display: none;
-    }
 }
 
 .msgcontainer {
@@ -100,10 +69,61 @@ body {
     color: blue;
     margin: auto;
 }
+
+
+/* On screens that are 420px wide or less ... */
+@media only screen and (max-height: 425px) {
+    .headercontainer {
+        height: 0px;
+    }
+    .maintitle {
+        display: none;
+        padding:0px;
+    }
+    .messagecontainer {
+        height: 20px;
+    }
+}
+
+/* On screens that are 375px wide or less ... */
 @media only screen and (max-height: 375px) {
+    .headercontainer {
+        height: 0px;
+    }
+    .topcontainer {
+        height: 65px;
+    }
+    .topcontainerwidth {
+        width:200px;
+    }
+    .middlecontainer {
+        height: 150px; 
+    }
+    .bottomcontainer {
+        height: 75px;
+    }
+    .bottomcontainerwidth {
+        width:320px;
+    }
+    .messagecontainer {
+        height: 20px;
+    }
+    .vhandcontainer {
+        width:60px;
+        height: 100px;
+    }
+    .maintitle {
+        display: none;
+        padding:0px;
+    }
+    .messagecontainer {
+        height: 15px;
+    }
     .msgstyle {
         font-size: 10pt;
         color: black;
     }
 }
+
+
 

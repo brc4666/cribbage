@@ -10,7 +10,7 @@
   
   .playeropposite {
      /* box-sizing: border-box;  */
-     margin: auto;
+     margin: 0px;
      padding: 0px;
      border: 2px solid rgb(0, 0,0);
      border-radius: 15px;

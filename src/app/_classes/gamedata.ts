@@ -448,6 +448,7 @@ export class GameData{
         if ( environment.DEBUG_LAYOUT == true) {
             this.state.turnUpCard = "ks";
             this.state.publicMessage = "Pegging messages go here !";
+            this.pegging.debug_forcepeggingtotal ( 22 );
         }
      
         this.setwhoIAm("Brian")
@@ -455,7 +456,6 @@ export class GameData{
         this.assignScreenPoints();
         // Initialise scores
         this.debug_initScores();
-        this.pegging.debug_forcepeggingtotal(0);
         // Initialise dealer
         this.state.currentDealer = "Brian";
         // determine which player is active
