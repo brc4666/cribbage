@@ -5,15 +5,14 @@ scorehands-modal {
 
 .scorehands-modal {
     /* modal container fixed across whole screen */
-    width: 550px;         /* 50%; */
-    height: 90%;
     position: absolute;
+    width: 550px;         /* 50%; */
+    /* height: 90%; */
     top:0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
-    
     /* z-index must be higher than .scorehands-modal-background */
     z-index: 1000;
     /* enables scrolling for tall modals */
@@ -158,28 +157,48 @@ body.scorehands-modal-open {
     font-size:12pt;
   }
 
-    
- @media only screen and (max-height: 375px) {
-    .title{ 
-      font-size:14pt;
-    }
-    .playermessage {
-      font-size:10pt;
-    }
-    .shcardwrapper {
-      width: 52px;
-      height: 64px;
-    }
-    .scorebreakdownul {
-      font-size:10pt;
-    }
-  }
-
   .scorebreakdownli {
     font: Helvetica;
     font-size:10pt;
     font-weight: bold;
   }
+
+ @media only screen and (max-height: 375px) {
+    .scorehands-modal {
+      width: 375px;
+    }
+    .scorehands-modal-body  {
+        margin: 2px;
+        padding: 5px;
+    }
+    .headingscontainer {
+      height: 10%;  
+    }
+    .title{ 
+      font-size:12pt;
+    }
+    .playermessage {
+      font-size:10pt;
+    }
+    .shcardwrapper {
+      width: 40px;
+      height: 50px;
+      /*
+      min-width: 40px;
+      min-height: 50px;
+      max-width: 40px;
+      max-height: 50px;
+      */
+    }
+    .scorebreakdownul {
+      font-size:10pt;
+    }
+    .scorebreakdownli {
+      font-size:8pt;
+    }
+  }
+
+
 
   #summarytable {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 

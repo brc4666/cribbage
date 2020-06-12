@@ -12,6 +12,14 @@
     transition: all 0.4s ease 0s;
  }
 
+ @media only screen and (max-height: 375px) {
+    #modalbutton {
+      font-size: 8pt;
+      margin-bottom: 2px;
+      padding: 5px;
+    }
+ }
+
  #modalbutton.notselectable {
     background: white;
     color: black;

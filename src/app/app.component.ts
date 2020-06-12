@@ -115,7 +115,7 @@ export class AppComponent implements OnInit, OnDestroy  {
 
 
       this.gc.game.config.isSetup = true;
-      this.gc.game.state.currentPhase = GamePhase.pegging;
+      this.gc.game.state.currentPhase = GamePhase.gameover;
       this.gc.debug_roundStatusChanged(this.gc.game.state.currentPhase);
 
 

@@ -9,9 +9,10 @@ gameover-modal {
 
 .gameover-modal {
     /* modal container fixed across whole screen */
-    width: 550px;         /* 50%; */
-    height: 90%;
     position: absolute;
+    width: 550px;         /* 50%; */
+    /* height: 90%; */
+    
     top:0;
     bottom: 0;
     left: 0;
@@ -103,16 +104,27 @@ h1 {
             */
     }
 
-    @media screen and (max-height: 375px) {
-        h1 {
-            font-size:16pt;
+    @media only screen and (max-height: 375px) {
+        .gameover-modal {
+          width: 375px;
+        }
+        .gameover-modal-body  {
+            margin: 2px;
+            padding: 5px;
+        }
+        .headingscontainer {
+          height: 10%;  
+        }
+        h1{ 
+          font-size:12pt;
+          margin-bottom: 5px;
         }
         .message{
-            font-size:12pt;
+            font-size:10pt;
             padding: 5px;
         }
         .comment{
-            font-size:10pt;
+            font-size:9pt;
             padding: 5px;
         }
     }

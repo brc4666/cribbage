@@ -53,8 +53,12 @@ export class GameoverComponent implements OnInit, OnDestroy {
     }
     this.title += " who won by " + this.wonBy + " points.";
 
+    this.comment = this.gc.game.gameoverComment;
+
+    /*
     if ( (this.gc.game.state.numActivePlayers>2 ) && ( "M&Ms" !== this.gc.game.scoring.playerScores[winnersIndex].displayname) ) {
       this.comment = "Oh ! Come on Matthew - you have to do better than that !";   
+      
     } else if (this.wonBy <= 5) {
       this.comment = "Wow ! That was a close one !";    
     } else if (this.wonBy <= 10) {
@@ -62,8 +66,9 @@ export class GameoverComponent implements OnInit, OnDestroy {
     } else if (this.wonBy <= 20) {
       this.comment = "A comfortable victory !"; 
     } else if (this.wonBy > 20) {
-      this.comment = "Ouch ! That was a bit of a drubbing, eh?"; 
+      this.comment = "Ouch ! That got to hurt, eh?"; 
     }      
+    */
   
   }
 

@@ -343,6 +343,7 @@ export class GameData{
     // serverPort: string = "";
     whoAmI: string = "";                
     scoreBox: boolean = false;
+    gameoverComment: string = "";
 
     // config/Setup info ...
     config: Config = new Config;

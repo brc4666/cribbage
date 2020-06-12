@@ -160,10 +160,11 @@ export class GameControllerService {
       this.refreshGame();
     } ); 
 
-    this.socket.on(MessagesFromServer.gameover, ( serverState: ServerGameStatus, serverScores: ServerGameScores ) => {
+    this.socket.on(MessagesFromServer.gameover, ( serverState: ServerGameStatus, serverScores: ServerGameScores, serverComment: string) => {
       // increment score from previous player's hand 
       this.game.scoring.applyServerScores( serverScores );
       this.game.state.applyServerState( serverState );
+      this.game.gameoverComment = serverComment;
       this.refreshGame();
     } ); 
 

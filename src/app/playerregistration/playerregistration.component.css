@@ -9,25 +9,32 @@ players-modal {
 
 .players-modal {
     /* modal container fixed across whole screen */
-    width: 500px;         /* 50%; */
-    height: 95%;
+    width: 550px;         /* 50%; */
+    /*height: 90%; */
     position: absolute;
     top:0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
+
+
+
+
+    
+    /*
+    top:0;
+    
+    left: 0;
+    
+    margin: auto;
+    */
     /* z-index must be higher than .players-modal-background */
     z-index: 1000;
     /* enables scrolling for tall modals */
     overflow: auto;
 }
-@media only screen and (max-height: 375px) {
-    .players-modal {
-        width: 400px;
-    }
-}
-    
+   
 .players-modal-body {
     padding: 20px;
     background:black;
@@ -145,18 +152,26 @@ body.players-modal-open {
      }
 
      @media only screen and (max-height: 375px) {
+        .players-modal {
+            width: 350px;
+        }
+        .players-modal-body  {
+            margin: 2px;
+            padding: 5px;
+        }
         .playersname {
-            font-size: 12pt;
+            font-size: 10pt;
             padding: 2px;
         }
         .connectbutton {
-            font-size: 10pt;
+            font-size: 8pt;
             margin-bottom: 2px;
             padding: 5px;
         }
         h1 {
-            font-size:18pt; 
+            font-size:14pt; 
             padding: 5px;
+            margin: 5px;
         }
     }
 
