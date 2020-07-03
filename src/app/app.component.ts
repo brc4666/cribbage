@@ -70,7 +70,7 @@ export class AppComponent implements OnInit, OnDestroy  {
     this.gc.game.addPotentialPlayer("Matthew", "W");
     this.gc.game.addPotentialPlayer("Mel", "E");
 
-    // and for the purposes of creating a nice celan but empty display ...
+    // and for the purposes of creating a nice clean but empty display ...
     // add 4 x dummy active players and an invisible card in each hand.
     this.gc.game.state.addActivePlayer("","N");
     this.gc.game.state.addActivePlayer("","S");
@@ -81,19 +81,19 @@ export class AppComponent implements OnInit, OnDestroy  {
     this.gc.game.state.activePlayers[2].hand.push(new CardinHand('ad', false, true));
     this.gc.game.state.activePlayers[3].hand.push(new CardinHand('ad', false, true));
 
+     /*
     var scorer: ScoreHand = new ScoreHand;
     var hand: CardinHand[] = [];
     var turnup: CardinHand;
 
-    /*
-    hand.push ( new CardinHand("tc", true) );
-    hand.push ( new CardinHand("ts", true) );
-    hand.push ( new CardinHand("js", true) );
-    hand.push ( new CardinHand("9s", true) );
-    let d = scorer.pegRuns( hand );
-    d = d;
 
- 
+    hand.push ( new CardinHand("9c", true) );
+    hand.push ( new CardinHand("7s", true) );
+    hand.push ( new CardinHand("9h", true) );
+    let d = scorer.pegRuns( hand );
+    d = d * 1;
+
+
     hand.push ( new CardinHand("8h", true) );
     hand.push ( new CardinHand("8d", true) );
     hand.push ( new CardinHand("7s", true) );

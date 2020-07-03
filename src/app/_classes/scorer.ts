@@ -378,7 +378,7 @@ export class ScoreHand {
         var runlength :number = partial.length;
         // Check to any duplicates in the part of the card sequence we are interested in 
         var foundDuplicate = false;
-        for (let i=0; i < partial.length - 2; i++) {
+        for (let i=0; i < partial.length - 1; i++) {
             if ( this.demonIndex(partial[i]) == this.demonIndex(partial[i+1]) ) {
                 foundDuplicate = true;
                 break;

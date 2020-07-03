@@ -449,7 +449,7 @@ export class GameData{
         if ( environment.DEBUG_LAYOUT == true) {
             this.state.turnUpCard = "ks";
             this.state.publicMessage = "Pegging messages go here !";
-            this.pegging.debug_forcepeggingtotal ( 22 );
+            // this.pegging.debug_forcepeggingtotal ( 22 );
         }
      
         this.setwhoIAm("Brian")
