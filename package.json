@@ -1,6 +1,6 @@
 {
   "name": "cribbage",
-  "version": "0.9.1",
+  "version": "1.2.0",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
