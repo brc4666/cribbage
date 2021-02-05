@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
-import { environment } from '../environments/environment';
 import { GameControllerService } from './_services/gamecontroller.service';
 
 import { MessageType, MessageHeader, GamePhase } from './_classes/common';

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import * as io from 'socket.io-client';
 
+import { environment } from '../../environments/environment';
+
 import { GameData } from '../_classes/gamedata';
 import { ServerGameData, ServerPlayerInfo, ServerGameStatus, ServerPeggingData, ServerBoxData, ServerGameScores } from '../_classes/serverdata';
 import { MessagesToServer, MessagesFromServer, MessageType, MessageHeader, GamePhase } from '../_classes/common';
@@ -73,12 +75,15 @@ export class GameControllerService {
 
       this.game.initialiseGame( datafromServer );
 
-      if ( this.game.state.currentPhase == GamePhase.cuttingForTurnup) {
-        alert('Forced to cutting for turnup phase ...!')
-      } else if ( this.game.state.currentPhase == GamePhase.pegging) { 
-        alert('Forced to pegging phase ...!')
-      } else if ( this.game.state.currentPhase == GamePhase.showingHands) {
-        alert('Forced to scoring hands phase ...!')
+      if ( true == environment.DEBUG )
+      {
+        if ( this.game.state.currentPhase == GamePhase.cuttingForTurnup) {
+          alert('Forced to cutting for turnup phase ...!')
+        } else if ( this.game.state.currentPhase == GamePhase.pegging) { 
+          alert('Forced to pegging phase ...!')
+        } else if ( this.game.state.currentPhase == GamePhase.showingHands) {
+          alert('Forced to scoring hands phase ...!')
+        }
       }
 
       // Now tell all components to refresh themselves
