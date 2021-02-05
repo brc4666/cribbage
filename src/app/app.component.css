@@ -35,7 +35,7 @@
 .maintitle {
     font-family: Arial, Helvetica, sans-serif;
     font: Helvetica;
-    font-size: 20pt;
+    font-size: 16pt;
     padding:2px;
     font-weight: bold;
     color: blueviolet;
@@ -52,7 +52,8 @@
     */
     align-content: center;
     box-sizing: border-box;
-    height: 100%;  
+    height: 30px;
+    /* height: 100%; */  
     width: 100%;
     align-self: center;
     margin: auto;
